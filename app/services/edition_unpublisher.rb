@@ -1,4 +1,4 @@
-class EditionUnpublisher < EditionService
+class EditionUnpublisher < EditionStateTransitionService
 
   def initialize(edition, options={})
     super

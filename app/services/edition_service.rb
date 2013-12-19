@@ -11,7 +11,7 @@ class EditionService
   def perform!
     if can_perform?
       prepare_edition
-      fire_transition!
+      execute!
       notify!
       true
     end
@@ -21,23 +21,15 @@ class EditionService
     !failure_reason
   end
 
-  def can_transition?
-    edition.public_send("can_#{verb}?")
-  end
-
   def failure_reason
     raise NotImplementedError.new("You must implement failure method.")
   end
 
-  def verb
-    raise NotImplementedError.new("You must implement verb method.")
-  end
-
-  def past_participle
-    "#{verb}ed".humanize.downcase
-  end
-
 private
+
+  def execute!
+    # Noop
+  end
 
   def notify!
     notifier && notifier.publish(verb, edition, options)
@@ -45,9 +37,5 @@ private
 
   def prepare_edition
     # Noop by default
-  end
-
-  def fire_transition!
-    edition.public_send("#{verb}!")
   end
 end

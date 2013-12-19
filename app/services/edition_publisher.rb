@@ -1,4 +1,4 @@
-class EditionPublisher < EditionService
+class EditionPublisher < EditionStateTransitionService
   def failure_reason
     @failure_reason ||= failure_reasons.first
   end

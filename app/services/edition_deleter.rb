@@ -1,4 +1,4 @@
-class EditionDeleter < EditionService
+class EditionDeleter < EditionStateTransitionService
   def verb
     'delete'
   end
