@@ -97,7 +97,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
   test "should display the published edition" do
     published_edition = create(:published_policy)
-    draft = published_edition.create_draft(create(:user))
+    draft = EditionRedrafter.new(published_edition, creator: create(:user)).perform!
     document = draft.document
 
     get :show, id: document

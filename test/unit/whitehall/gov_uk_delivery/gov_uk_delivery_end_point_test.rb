@@ -65,7 +65,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
 
   test '#description includes the change note for updated editions' do
     first_edition = create(:published_publication)
-    second_edition = first_edition.create_draft(create(:departmental_editor))
+    second_edition = EditionRedrafter.new(first_edition, creator: create(:departmental_editor)).perform!
     second_edition.change_note = "Updated some stuff"
     second_edition.save!
     force_publish(second_edition)
@@ -386,7 +386,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
 
   test '#email_body html-escapes html characters in the title, change note and summary' do
     first_draft = create(:published_publication, title: 'Beards & Facial Hair', summary: 'Keep your beard "tip-top"!')
-    second_draft = first_draft.create_draft(create(:departmental_editor))
+    second_draft = EditionRedrafter.new(first_draft, creator: create(:departmental_editor)).perform!
     second_draft.change_note = '"tip-top" added.'
     second_draft.save!
     force_publish(second_draft)

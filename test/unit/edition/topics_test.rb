@@ -18,7 +18,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
 
   test "new edition of document that is a member of a topic should remain a member of that topic" do
     edition = create(:published_policy, topics: [@topic])
-    new_edition = edition.create_draft(create(:policy_writer))
+    new_edition = EditionRedrafter.new(edition, creator: create(:policy_writer)).perform!
 
     assert_equal [@topic], new_edition.topics
   end

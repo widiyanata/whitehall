@@ -23,7 +23,7 @@ class Whitehall::Uploader::Finders::EditionFinderTest < ActiveSupport::TestCase
 
   test "returns the published edition even if a draft edition exists" do
     policy_1 = create(:published_policy, title: "Policy 1")
-    policy_1_draft = policy_1.create_draft(create(:user))
+    policy_1_draft = EditionRedrafter.new(policy_1, creator: create(:user)).perform!
     assert_equal [policy_1], @policy_finder.find(policy_1.slug)
   end
 

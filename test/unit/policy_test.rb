@@ -18,7 +18,7 @@ class PolicyTest < ActiveSupport::TestCase
       {nation: Nation.scotland, alternative_url: "http://scot.gov.uk"}]
     )
 
-    draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_policy = EditionRedrafter.new(published_policy, creator: create(:policy_writer)).perform!
 
     assert_equal published_policy.inapplicable_nations, draft_policy.inapplicable_nations
     assert_equal "http://wales.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
@@ -30,7 +30,7 @@ class PolicyTest < ActiveSupport::TestCase
     publication = create(:published_publication, related_editions: [published_policy])
     speech = create(:published_speech, related_editions: [published_policy])
 
-    draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_policy = EditionRedrafter.new(published_policy, creator: create(:policy_writer)).perform!
     draft_policy.change_note = 'change-note'
     assert draft_policy.valid?
 
@@ -45,11 +45,11 @@ class PolicyTest < ActiveSupport::TestCase
     first_draft = create(:draft_publication, related_editions: [published_policy])
     force_publish(first_draft)
     first_draft.reload
-    second_draft = first_draft.create_draft(editor)
+    second_draft = EditionRedrafter.new(first_draft, creator: editor).perform!
     second_draft.change_note = 'change-note'
     assert second_draft.valid?
 
-    draft_policy = published_policy.create_draft(editor)
+    draft_policy = EditionRedrafter.new(published_policy, creator: editor).perform!
     draft_policy.change_note = 'change-note'
     assert draft_policy.valid?
 
@@ -67,7 +67,7 @@ class PolicyTest < ActiveSupport::TestCase
     assert published_policy.policy_teams.include?(policy_team)
     assert published_policy.policy_advisory_groups.include?(policy_advisory_group)
 
-    draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_policy = EditionRedrafter.new(published_policy, creator: create(:policy_writer)).perform!
     draft_policy.change_note = 'change-note'
     assert draft_policy.valid?
 

@@ -68,7 +68,7 @@ protected
 
   def draft_of_collection_for_editing(collection_document)
     if collection_document.latest_edition.published?
-      collection_document.latest_edition.create_draft(import_user)
+      EditionRedrafter.new(collection_document.latest_edition, creator: import_user).perform!
     else
       collection_document.latest_edition
     end

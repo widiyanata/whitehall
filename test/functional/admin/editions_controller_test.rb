@@ -73,7 +73,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     policy.major_change_published_at = Time.zone.now
     force_publish(policy)
     draft_policy = Timecop.freeze 1.hour.from_now do
-      policy.reload.create_draft(editor)
+      EditionRedrafter.new(policy.reload, creator: editor).perform!
     end
 
     get :diff, id: draft_policy, audit_trail_entry_id: draft_policy.document_version_trail.first.version.item_id

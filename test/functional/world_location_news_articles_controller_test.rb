@@ -39,7 +39,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
     world_news_article = create(:published_world_location_news_article, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
-    updated_world_news_article = world_news_article.create_draft(editor)
+    updated_world_news_article = EditionRedrafter.new(world_news_article, creator: editor).perform!
     updated_world_news_article.change_note = "change-note"
     force_publish(updated_world_news_article)
 

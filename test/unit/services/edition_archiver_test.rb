@@ -39,7 +39,7 @@ class EditionArchiverTest < ActiveSupport::TestCase
 
   test 'cannot archive a published editions if a newer draft exists' do
     edition = create(:published_edition)
-    edition.create_draft(create(:policy_writer))
+    EditionRedrafter.new(edition, creator: create(:policy_writer)).perform!
     unpublisher = EditionArchiver.new(edition)
 
     refute unpublisher.can_perform?

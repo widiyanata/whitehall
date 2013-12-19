@@ -33,7 +33,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
   view_test "show for a new draft links back to its published edition" do
     original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft = EditionRedrafter.new(original_edition, creator: create(:policy_writer)).perform!
 
     get :show, id: new_draft
 
@@ -42,7 +42,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
   view_test "show for a published edition links to a new draft" do
     original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft = EditionRedrafter.new(original_edition, creator: create(:policy_writer)).perform!
 
     get :show, id: original_edition
 

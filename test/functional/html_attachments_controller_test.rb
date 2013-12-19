@@ -50,7 +50,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   view_test '#show previews the latest html attachment (without caching), despite the slugs matching' do
     user = create(:departmental_editor)
     publication, attachment = create_edition_and_attachment
-    draft = publication.create_draft(user)
+    draft = EditionRedrafter.new(publication, creator: user).perform!
     draft_attachment = draft.attachments.first
     draft_attachment.update_attribute(:title, 'Updated HTML Attachment Title')
 

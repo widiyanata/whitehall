@@ -42,6 +42,6 @@ class Edition::RoleAppointmentsTest < ActiveSupport::TestCase
 
   test "copies the role appointments over to a new draft" do
     published = build :published_news_article, role_appointments: appointments
-    assert_equal appointments, published.create_draft(build(:user)).role_appointments
+    assert_equal appointments, EditionRedrafter.new(published, creator: build(:user)).perform!.role_appointments
   end
 end

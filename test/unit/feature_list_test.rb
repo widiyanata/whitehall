@@ -80,7 +80,7 @@ class FeatureListTest < ActiveSupport::TestCase
     create(:feature, feature_list: feature_list, document: item_b.document)
 
     editor = create(:departmental_editor)
-    new_draft = item_b.create_draft(editor)
+    new_draft = EditionRedrafter.new(item_b, creator: editor).perform!
     new_draft.minor_change = true
     force_publish(new_draft)
 

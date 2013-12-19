@@ -40,7 +40,7 @@ class HomeControllerTest < ActionController::TestCase
   view_test 'Atom feed shows a list of recently published documents with govdelivery attributes when requested' do
     editor = create(:departmental_editor)
     edition = create(:published_speech)
-    version_2 = edition.create_draft(editor)
+    version_2 = EditionRedrafter.new(edition, creator: editor).perform!
     version_2.change_note = 'My new version'
     force_publish(version_2)
 

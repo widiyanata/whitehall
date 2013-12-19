@@ -35,7 +35,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     news_article = create(:published_news_article, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
-    updated_news_article = news_article.create_draft(editor)
+    updated_news_article = EditionRedrafter.new(news_article, creator: editor).perform!
     updated_news_article.change_note = "change-note"
     force_publish(updated_news_article)
 

@@ -93,7 +93,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     news = create(:published_news_article, first_published_at: 2.days.ago)
     editor = create(:departmental_editor)
-    draft = news.create_draft(editor)
+    draft = EditionRedrafter.new(news, creator: editor).perform!
 
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
     create(:feature, feature_list: feature_list, document: news.document)

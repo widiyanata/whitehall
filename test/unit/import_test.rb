@@ -281,7 +281,7 @@ class ImportTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     edition.convert_to_draft!
     force_publish(edition)
-    new_draft = edition.create_draft(editor)
+    new_draft = EditionRedrafter.new(edition, creator: editor).perform!
     refute import.imported_editions.include?(new_draft)
   end
 
@@ -296,7 +296,7 @@ class ImportTest < ActiveSupport::TestCase
     force_publish(edition)
     refute import.force_publishable_editions.include?(edition)
 
-    new_draft = edition.create_draft(create(:departmental_editor))
+    new_draft = EditionRedrafter.new(edition, creator: create(:departmental_editor)).perform!
     refute import.force_publishable_editions.include?(edition)
   end
 

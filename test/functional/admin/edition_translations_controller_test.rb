@@ -90,7 +90,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   test "update creates a translation for a new draft of a previously published edition" do
     published_edition = create(:published_edition)
-    draft_edition = published_edition.create_draft(@policy_writer)
+    draft_edition = EditionRedrafter.new(published_edition, creator: @policy_writer).perform!
 
     put :update, edition_id: draft_edition, id: 'fr', edition: {
       title: 'translated-title',

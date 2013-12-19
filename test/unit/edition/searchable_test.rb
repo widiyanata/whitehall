@@ -55,7 +55,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(edition).never
 
-    new_edition = edition.create_draft(create(:policy_writer))
+    new_edition = EditionRedrafter.new(edition, creator: create(:policy_writer)).perform!
     new_edition.change_note = "change-note"
     force_publish(new_edition)
   end

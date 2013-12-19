@@ -41,7 +41,7 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
 
   test "copies the worldwide priorities over to a new draft" do
     published = create :published_world_location_news_article, related_editions: priorities
-    assert_equal priorities, published.create_draft(build(:user)).worldwide_priorities
+    assert_equal priorities, EditionRedrafter.new(published, creator: build(:user)).perform!.worldwide_priorities
   end
 
   test "editions with worldwide priorities report that they can be associated with them" do
@@ -51,7 +51,7 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
 
   test "editions with worldwide priorities always point to the latest edition of the priority" do
     @edition.save!
-    new_priority = priorities.first.latest_edition.create_draft(build(:user))
+    new_priority = EditionRedrafter.new(priorities.first.latest_edition, creator: build(:user)).perform!
     new_priority.update_column(:minor_change, true)
     force_publish(new_priority)
     assert @edition.published_worldwide_priorities.include?(new_priority)

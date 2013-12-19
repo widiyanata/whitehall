@@ -106,7 +106,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   test "should display the published policy" do
     policy = create(:published_policy)
-    draft_policy = policy.create_draft(create(:user))
+    draft_policy = EditionRedrafter.new(policy, creator: create(:user)).perform!
 
     supporting_page = create(:published_supporting_page, related_policies: [policy])
 
@@ -120,7 +120,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     policy = create(:published_policy)
 
     supporting_page = create(:published_supporting_page, related_policies: [policy])
-    draft_supporting_page = supporting_page.create_draft(create(:user))
+    draft_supporting_page = EditionRedrafter.new(supporting_page, creator: create(:user)).perform!
 
     get :show, policy_id: policy.document, id: draft_supporting_page.document
 

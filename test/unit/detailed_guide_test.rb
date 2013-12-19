@@ -50,7 +50,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     published_guide = create(:published_detailed_guide)
     guide = create(:detailed_guide, outbound_related_documents: [published_guide.document])
 
-    latest_edition = published_guide.create_draft(create(:policy_writer))
+    latest_edition = EditionRedrafter.new(published_guide, creator: create(:policy_writer)).perform!
     assert_equal [latest_edition], guide.reload.related_detailed_guides
   end
 
@@ -58,7 +58,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     published_guide = create(:published_detailed_guide)
     guide = create(:detailed_guide, outbound_related_documents: [published_guide.document])
 
-    latest_edition = published_guide.create_draft(create(:policy_writer))
+    latest_edition = EditionRedrafter.new(published_guide, creator: create(:policy_writer)).perform!
     assert_equal [published_guide], guide.reload.published_related_detailed_guides
   end
 
@@ -90,7 +90,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
                              primary_mainstream_category: primary_mainstream_category,
                              other_mainstream_categories: [other_mainstream_category])
 
-    draft_guide = published_guide.create_draft(create(:policy_writer))
+    draft_guide = EditionRedrafter.new(published_guide, creator: create(:policy_writer)).perform!
 
     assert_equal published_guide.mainstream_categories, draft_guide.mainstream_categories
   end

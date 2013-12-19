@@ -14,13 +14,13 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:document)
     original_policy = create(:draft_policy, document: document)
     force_publish(original_policy)
-    draft_policy = original_policy.create_draft(user)
+    draft_policy = EditionRedrafter.new(original_policy, creator: user).perform!
     draft_policy.change_note = "change-note"
     force_publish(draft_policy)
 
     superseded_policy = original_policy
     published_policy = draft_policy
-    new_draft_policy = published_policy.create_draft(user)
+    new_draft_policy = EditionRedrafter.new(published_policy, creator: user).perform!
 
     assert_equal published_policy, document.reload.published_edition
   end

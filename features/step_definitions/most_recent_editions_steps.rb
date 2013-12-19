@@ -1,14 +1,14 @@
 When /^someone else creates a new edition of the published document "([^"]*)"$/ do |title|
   random_editor = create(:departmental_editor)
   current = Edition.find_by_title(title).latest_edition
-  current.create_draft(random_editor)
+  EditionRedrafter.new(current, creator: random_editor).perform!
 end
 
 When /^someone else creates a new edition of the published document "([^"]*)" and limits access to members of "([^"]+)"$/ do |title, organisation_name|
   org = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
   random_editor = create(:departmental_editor)
   current = Edition.find_by_title(title).latest_edition
-  new_draft = current.create_draft(random_editor)
+  new_draft = EditionRedrafter.new(current, creator: random_editor).perform!
   new_draft.organisations << org
   new_draft.access_limited = true
   new_draft.change_note = 'Limited to '+org.name

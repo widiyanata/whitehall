@@ -149,7 +149,7 @@ class SpeechTest < ActiveSupport::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, role: ministerial_role, person: person)
     speech = create(:published_speech, role_appointment: role_appointment)
-    new_draft = speech.create_draft(create(:user))
+    new_draft = EditionRedrafter.new(speech, creator: create(:user)).perform!
     assert_equal 1, new_draft.edition_organisations.count
   end
 

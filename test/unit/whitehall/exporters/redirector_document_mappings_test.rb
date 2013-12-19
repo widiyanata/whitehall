@@ -84,7 +84,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
 
     test "exports with 301 if the document has a published edition" do
       publication = create(:published_publication)
-      new_draft = publication.create_draft(create(:gds_editor))
+      new_draft = EditionRedrafter.new(publication, creator: create(:gds_editor)).perform!
       assert_extraction_contains <<-EOF.strip_heredoc
         "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
         "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{new_draft.id},draft

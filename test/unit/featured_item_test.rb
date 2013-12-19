@@ -52,7 +52,7 @@ class FeaturedItemTest < ActiveSupport::TestCase
 
   test 'linkable_item is the publised_edition of the item when it is a document' do
     p1 = create(:published_policy, :with_document)
-    p2 = p1.create_draft(create(:policy_writer))
+    p2 = EditionRedrafter.new(p1, creator: create(:policy_writer)).perform!
     p2.change_note = 'meh'
     force_publish(p2)
 
@@ -69,7 +69,7 @@ class FeaturedItemTest < ActiveSupport::TestCase
 
   test 'linkable_title is the title of the published edition of the item when the it is a document' do
     p1 = create(:published_policy, :with_document)
-    p2 = p1.create_draft(create(:policy_writer))
+    p2 = EditionRedrafter.new(p1, creator: create(:policy_writer)).perform!
     p2.change_note = 'meh'
     force_publish(p2)
 

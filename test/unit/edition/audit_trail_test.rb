@@ -95,7 +95,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     published_edition = create(:published_edition)
     policy_writer = create(:policy_writer)
     Edition::AuditTrail.whodunnit = policy_writer
-    draft_edition = published_edition.create_draft(policy_writer)
+    draft_edition = EditionRedrafter.new(published_edition, creator: policy_writer).perform!
     assert_equal "editioned", draft_edition.document_audit_trail.last.action
     assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
   end
@@ -103,7 +103,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   test "after creating a new draft, audit events from previous editions still available" do
     published_edition = create(:published_edition)
     previous_events = published_edition.document_audit_trail
-    draft_edition = published_edition.create_draft(@user)
+    draft_edition = EditionRedrafter.new(published_edition, creator: @user).perform!
     assert_equal previous_events, draft_edition.document_audit_trail[0..-2]
   end
 
@@ -111,7 +111,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     published_edition = create(:published_edition)
     policy_writer = create(:policy_writer)
     Edition::AuditTrail.whodunnit = policy_writer
-    draft_edition = published_edition.create_draft(policy_writer)
+    draft_edition = EditionRedrafter.new(published_edition, creator: policy_writer).perform!
     assert_equal 1, published_edition.edition_audit_trail.size
     assert_equal "editioned", draft_edition.document_audit_trail.last.action
     assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
@@ -125,7 +125,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     editorial_remark_body = "blah"
     Timecop.freeze(Time.zone.now + 1.day)
     published_edition.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
-    draft_edition = published_edition.create_draft(policy_writer)
+    draft_edition = EditionRedrafter.new(published_edition, creator: policy_writer).perform!
     refute draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
     refute draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
   end

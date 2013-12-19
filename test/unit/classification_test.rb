@@ -96,7 +96,7 @@ class ClassificationTest < ActiveSupport::TestCase
     old_version = topical_event.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: 'A thing', image: create(:classification_featuring_image_data)).edition
 
     editor = create(:departmental_editor)
-    new_version = old_version.create_draft(editor)
+    new_version = EditionRedrafter.new(old_version, creator: editor).perform!
     new_version.change_note = 'New stuffs!'
     new_version.save
     force_publish(new_version)

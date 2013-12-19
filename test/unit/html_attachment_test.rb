@@ -12,7 +12,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     edition = create(:published_publication, attachments: [
       attachment = build(:html_attachment, title: "an-html-attachment")
     ])
-    draft = edition.create_draft(create(:policy_writer))
+    draft = EditionRedrafter.new(edition, creator: create(:policy_writer)).perform!
 
     assert_equal "an-html-attachment", draft.attachments.first.slug
   end
@@ -33,7 +33,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     edition = create(:published_publication, attachments: [
       build(:html_attachment, title: "an-html-attachment")
     ])
-    draft = edition.create_draft(create(:policy_writer))
+    draft = EditionRedrafter.new(edition, creator: create(:policy_writer)).perform!
     attachment = draft.attachments.first
 
     attachment.title = "a-new-title"

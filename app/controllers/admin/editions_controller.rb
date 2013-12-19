@@ -102,7 +102,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def revise
-    new_draft = @edition.create_draft(current_user)
+    new_draft = EditionRedrafter.new(@edition, creator: current_user).perform!
     if new_draft.persisted?
       redirect_to edit_admin_edition_path(new_draft)
     else

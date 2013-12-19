@@ -173,7 +173,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   def create_superseded_policy_with_published_edition
     edition = create(:published_policy)
     writer = create(:policy_writer)
-    new_draft = edition.create_draft(writer)
+    new_draft = EditionRedrafter.new(edition, creator: writer).perform!
     new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
     new_draft.submit!
@@ -184,7 +184,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   def create_draft_policy_with_published_edition
     edition = create(:published_policy)
     writer = create(:policy_writer)
-    new_draft = edition.create_draft(writer)
+    new_draft = EditionRedrafter.new(edition, creator: writer).perform!
     new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
     [edition, new_draft]

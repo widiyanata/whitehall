@@ -36,7 +36,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
     case_study = create(:published_case_study, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
-    updated_case_study = case_study.create_draft(editor)
+    updated_case_study = EditionRedrafter.new(case_study, creator: editor).perform!
     updated_case_study.change_note = "change-note"
     force_publish(updated_case_study)
 

@@ -33,7 +33,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       first_published_at: Time.zone.now,
       images: [image]
     ))
-    draft_edition = published_edition.create_draft(build(:user))
+    draft_edition = EditionRedrafter.new(published_edition, creator: build(:user)).perform!
     draft_edition.change_note = 'change-note'
 
     assert draft_edition.valid?
@@ -52,7 +52,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       first_published_at: Time.zone.now,
       images: [image]
     ))
-    draft_edition = published_edition.create_draft(build(:user))
+    draft_edition = EditionRedrafter.new(published_edition, creator: build(:user)).perform!
     new_image = draft_edition.images.last
 
     assert_equal image.image_data_id, new_image.image_data_id
@@ -72,7 +72,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       }]
     ))
 
-    draft_edition = published_edition.create_draft(build(:user))
+    draft_edition = EditionRedrafter.new(published_edition, creator: build(:user)).perform!
     draft_edition.images.first.update_attributes(caption: "new-caption")
 
     assert_equal "original-caption", published_edition.images.first.caption

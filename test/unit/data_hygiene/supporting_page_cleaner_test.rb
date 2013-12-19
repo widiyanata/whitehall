@@ -12,7 +12,7 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     dup2_edition      = duplicate_migrated_supporting_page(second_edition)
     dup3_edition      = duplicate_migrated_supporting_page(dup2_edition, state: :superseded, title: 'Title updated')
     published_edition = duplicate_migrated_supporting_page(dup3_edition, state: :published)
-    draft_edition     = published_edition.create_draft(create(:policy_writer))
+    draft_edition     = EditionRedrafter.new(published_edition, creator: create(:policy_writer)).perform!
 
     first_attachment  = second_edition.reload.attachments.first
     dup2_attachment   = dup2_edition.reload.attachments.first
@@ -44,7 +44,7 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     first_edition     = create_migrated_supporting_page(:superseded, change_note: "Policy's change note")
     second_edition    = duplicate_migrated_supporting_page(first_edition)
     third_edition     = duplicate_migrated_supporting_page(second_edition, state: :published)
-    new_edition       = third_edition.create_draft(create(:policy_writer))
+    new_edition       = EditionRedrafter.new(third_edition, creator: create(:policy_writer)).perform!
     new_edition.change_note = "Updated by an editor"
     new_edition.minor_change = false
     force_publish(new_edition)
@@ -87,7 +87,7 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     major_change = create(:supporting_page, :published, document: first_edition.document, related_policies: first_edition.related_policies,
                           first_published_at: first_edition.first_published_at, major_change_published_at: 2.days.ago)
 
-    minor_change = major_change.create_draft(create(:policy_writer))
+    minor_change = EditionRedrafter.new(major_change, creator: create(:policy_writer)).perform!
     minor_change.minor_change = true
     force_publish(minor_change)
 

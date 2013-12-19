@@ -79,14 +79,14 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "incrementing the version number on a major change resets the minor version and increments the major version" do
     edition = create(:published_edition, published_major_version: 1, published_minor_version: 2)
-    new_draft = edition.create_draft(create(:departmental_editor))
+    new_draft = EditionRedrafter.new(edition, creator: create(:departmental_editor)).perform!
     new_draft.increment_version_number
     assert_equal '2.0', new_draft.published_version
   end
 
   test "incrementing the version number on a minor change updates the minor version" do
     edition = create(:published_edition)
-    new_draft = edition.create_draft(create(:policy_writer))
+    new_draft = EditionRedrafter.new(edition, creator: create(:policy_writer)).perform!
     new_draft.minor_change = true
     new_draft.increment_version_number
     assert_equal '1.1', new_draft.published_version
@@ -101,7 +101,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test '#reset_version_numbers on a re-editioned edition resets the version numbers back to that of the previous edition' do
     previous_edition = create(:published_edition, published_major_version: 2, published_minor_version: 4)
-    new_edition = previous_edition.create_draft(create(:policy_writer))
+    new_edition = EditionRedrafter.new(previous_edition, creator: create(:policy_writer)).perform!
     new_edition.minor_change = true
     force_publish(new_edition)
 

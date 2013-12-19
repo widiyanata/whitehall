@@ -47,7 +47,7 @@ class PublicationTest < ActiveSupport::TestCase
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     })
 
-    draft = published.create_draft(create(:policy_writer))
+    draft = EditionRedrafter.new(published, creator: create(:policy_writer)).perform!
 
     assert_kind_of Attachment, published.attachments.first
     assert_not_equal published.attachments, draft.attachments

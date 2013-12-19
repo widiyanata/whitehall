@@ -70,7 +70,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
       build(:document_collection_group, documents: [doc])
     ])
 
-    draft = original.create_draft(create(:gds_editor))
+    draft = EditionRedrafter.new(original, creator: create(:gds_editor)).perform!
 
     assert_not_equal original.groups, draft.groups
 

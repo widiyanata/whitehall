@@ -11,7 +11,7 @@ class Edition::SupportingPagesTest < ActiveSupport::TestCase
   test "#published_supporting_pages should only return published editions" do
     policy = create(:policy)
     supporting_page = create(:published_supporting_page, related_policies: [policy])
-    supporting_page.create_draft(create(:policy_writer))
+    EditionRedrafter.new(supporting_page, creator: create(:policy_writer)).perform!
     create(:draft_supporting_page, related_policies: [policy])
 
     assert_equal [supporting_page], policy.published_supporting_pages
@@ -21,7 +21,7 @@ class Edition::SupportingPagesTest < ActiveSupport::TestCase
     policy = create(:policy)
     published_page = create(:published_supporting_page, related_policies: [policy])
     other_page = create(:published_supporting_page, related_policies: [policy])
-    draft_page = other_page.create_draft(create(:policy_writer))
+    draft_page = EditionRedrafter.new(other_page, creator: create(:policy_writer)).perform!
     submitted_page = create(:submitted_supporting_page, related_policies: [policy])
 
     assert_equal [published_page, draft_page, submitted_page], policy.active_supporting_pages

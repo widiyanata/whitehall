@@ -60,7 +60,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".latest_edition includes only latest edition of a edition" do
     original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft = EditionRedrafter.new(original_edition, creator: create(:policy_writer)).perform!
     refute Edition.latest_edition.include?(original_edition)
     assert Edition.latest_edition.include?(new_draft)
   end
@@ -89,13 +89,13 @@ class EditionTest < ActiveSupport::TestCase
 
     refute edition.most_recent_change_note
 
-    version_2 = edition.create_draft(editor)
+    version_2 = EditionRedrafter.new(edition, creator: editor).perform!
     version_2.change_note = 'My new version'
     force_publish(version_2)
 
     assert_equal 'My new version', version_2.most_recent_change_note
 
-    version_3 = version_2.create_draft(editor)
+    version_3 = EditionRedrafter.new(version_2, creator: editor).perform!
     version_3.minor_change = true
     force_publish(version_3)
 
@@ -276,7 +276,7 @@ class EditionTest < ActiveSupport::TestCase
     Timecop.freeze publication.scheduled_publication do
       acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
       acting_as(editor) do
-        new_draft = publication.create_draft(editor)
+        new_draft = EditionRedrafter.new(publication, creator: editor).perform!
         assert_equal nil, new_draft.scheduled_by
       end
     end
@@ -473,7 +473,7 @@ class EditionTest < ActiveSupport::TestCase
 
     assert_equal [jan, feb, second_feb].collect(&:id), Edition.published.in_chronological_order.collect(&:id)
 
-    re_editioned_feb = feb.create_draft(create(:policy_writer))
+    re_editioned_feb = EditionRedrafter.new(feb, creator: create(:policy_writer)).perform!
     re_editioned_feb.minor_change = true
     force_publish(re_editioned_feb)
 
@@ -488,7 +488,7 @@ class EditionTest < ActiveSupport::TestCase
 
     assert_equal [second_feb, feb, jan].collect(&:id), Edition.published.in_reverse_chronological_order.collect(&:id)
 
-    re_editioned_feb = feb.create_draft(create(:policy_writer))
+    re_editioned_feb = EditionRedrafter.new(feb, creator: create(:policy_writer)).perform!
     re_editioned_feb.minor_change = true
     force_publish(re_editioned_feb)
 

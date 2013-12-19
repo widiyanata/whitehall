@@ -33,7 +33,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
     fatality_notice = create(:published_fatality_notice, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
-    updated_fatality_notice = fatality_notice.create_draft(editor)
+    updated_fatality_notice = EditionRedrafter.new(fatality_notice, creator: editor).perform!
     updated_fatality_notice.change_note = "change-note"
     force_publish(updated_fatality_notice)
 

@@ -26,7 +26,7 @@ DataHygiene::DuplicateAttachmentFinder.new.editions.each do |edition|
   end
 
   logger.info("Fixing attachments on edition #{edition.id}")
-  new_edition = edition.create_draft(gds_user)
+  new_edition = EditionRedrafter.new(edition, creator: gds_user).perform!
 
   logger.info("\tAttachments before:\t#{edition.attachments.files.collect(&:filename).to_sentence}")
   DataHygiene::DupFilenameAttachmentFixer.new(new_edition).run!

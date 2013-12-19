@@ -180,7 +180,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition.save_as(user = create(:user))
     publish(edition)
 
-    new_draft = edition.create_draft(user)
+    new_draft = EditionRedrafter.new(edition, creator: user).perform!
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
     new_draft.save_as(user)
