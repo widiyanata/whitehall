@@ -11,9 +11,9 @@ class EditionService
   def perform!
     if can_perform?
       prepare_edition
-      execute!
+      result = execute!
       notify!
-      true
+      result
     end
   end
 

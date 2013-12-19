@@ -394,23 +394,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
-
   # @!endgroup
 
   def create_draft(user)
-    unless published?
-      raise "Cannot create new edition based on edition in the #{state} state"
-    end
-    draft_attributes = attributes.except(*%w{id type state created_at updated_at change_note
-      minor_change force_published scheduled_publication})
-    self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
-      traits.each { |t| t.process_associations_before_save(draft) }
-      if draft.valid? || !draft.errors.keys.include?(:base)
-        if draft.save(validate: false)
-          traits.each { |t| t.process_associations_after_save(draft) }
-        end
-      end
-    end
+    EditionRedrafter.new(self, creator: user).perform!
   end
 
   def author_names

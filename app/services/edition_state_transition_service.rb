@@ -17,6 +17,7 @@ class EditionStateTransitionService < EditionService
 private
   def execute!
     fire_transition!
+    true
   end
 
   def fire_transition!
