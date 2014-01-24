@@ -52,6 +52,7 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
+    return "" if organisation.type.other? && organisation.parent_organisations.empty?
     name = ERB::Util.h(organisation_display_name(organisation))
     type_name = organisation_type_name(organisation)
     relationship = ERB::Util.h(add_indefinite_article(type_name))

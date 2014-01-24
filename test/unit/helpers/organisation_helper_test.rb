@@ -226,6 +226,13 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_display_name_text parent, expected
   end
 
+  test 'organisation of type other with no parent has no description' do
+    organisation = create(:organisation, organisation_type_key: :other, parent_organisations: [])
+
+    actual = organisation_display_name_and_parental_relationship(organisation)
+
+    assert_equal '', actual
+  end
   test 'links to parent organisation' do
     parent = create(:organisation)
     child = create(:organisation, parent_organisations: [parent])

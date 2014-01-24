@@ -26,7 +26,9 @@
         <p><%= @organisation.description %></p>
         <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
 
-        <p><%= link_to @organisation.url, @organisation.url, class: 'url-link' %></p>
+        <% if @organisation.url.present? %>
+          <p><%= link_to @organisation.url, @organisation.url, class: 'url-link' %></p>
+        <% end %>
       </div>
     </div>
   </div>
