@@ -254,7 +254,7 @@ class Import < ActiveRecord::Base
     documents[documents.index(document).next]
   end
 
-  def self.use_separate_connection
+  def self.using_separate_connection
     # ActiveRecord stashes DB connections on a class
     # hierarchy basis, so this establishes a separate
     # DB connection for just the Import model that
@@ -264,9 +264,15 @@ class Import < ActiveRecord::Base
     # This is so we can log information as we process
     # files without worrying about transactional
     # rollbacks for the actual import process.
-    Import.establish_connection ActiveRecord::Base.configurations[Rails.env]
-    ImportError.establish_connection ActiveRecord::Base.configurations[Rails.env]
-    ImportLog.establish_connection ActiveRecord::Base.configurations[Rails.env]
+    begin
+      import_related_models = [Import, ImportError, ImportLog]
+      import_related_models.each do |klass|
+        klass.establish_connection ActiveRecord::Base.configurations[Rails.env]
+      end
+      yield
+    ensure
+      import_related_models.map(&:remove_connection)
+    end
   end
 
   private

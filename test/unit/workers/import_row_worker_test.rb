@@ -53,10 +53,13 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
   end
 
   def perform_import_cleanup(&block)
-    Import.use_separate_connection
-    yield
-  ensure
-    Import.destroy_all
+    Import.using_separate_connection do
+      begin
+        yield
+      ensure
+        Import.destroy_all
+      end
+    end
   end
 
 end

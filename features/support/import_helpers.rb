@@ -9,19 +9,19 @@ module ImportHelpers
 
   def import_data_as_document_type_for_organisation(data, document_type, organisation)
     make_sure_data_importer_user_exists
-    Import.use_separate_connection
+    Import.using_separate_connection do
+      with_import_csv_file(data) do |path|
+        visit new_admin_import_path
+        select document_type, from: 'Type'
+        attach_file 'CSV File', path
+        select organisation.name, from: 'Default organisation'
+        click_button 'Save'
+        click_button 'Run'
 
-    with_import_csv_file(data) do |path|
-      visit new_admin_import_path
-      select document_type, from: 'Type'
-      attach_file 'CSV File', path
-      select organisation.name, from: 'Default organisation'
-      click_button 'Save'
-      click_button 'Run'
-
-      visit current_path
+        visit current_path
+      end
+      Import.find(current_path.match(/admin\/imports\/(\d+)\Z/)[1])
     end
-    Import.find(current_path.match(/admin\/imports\/(\d+)\Z/)[1])
   end
 
   def make_sure_data_importer_user_exists
@@ -46,10 +46,12 @@ World(ImportHelpers)
 require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation # clean once to ensure clean slate
 
-Before('@import') do
-  Import.use_separate_connection
-end
-
-After('@import') do
-  DatabaseCleaner.clean_with :truncation
+Around('@import') do |scenario, block|
+  Import.using_separate_connection do
+    begin
+      block.call
+    ensure
+      DatabaseCleaner.clean_with :truncation
+    end
+  end
 end
