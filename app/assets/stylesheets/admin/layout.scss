@@ -4,6 +4,32 @@ html {
   font-size: 62.5%;
 }
 
+.environment-message {
+  background: #ffbf47;
+  padding: 3px 5px 3px;
+  line-height: 19px;
+  display: block;
+  color: #000 !important;
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 15px;
+  margin-top: -3px;
+}
+
+.environment-production {
+  color: #fff !important;
+  background-color: #df3034;
+}
+
+.environment-dev {
+  background-color: #BFC1C3;
+}
+
+// .navbar .navbar-inner .container-fluid {
+//   border-top: 5px solid #ffbf47;
+//   padding-bottom: 10px !important;
+// }
+
 body {
   padding-bottom: $gutter+$gutter-one-third;
 }
