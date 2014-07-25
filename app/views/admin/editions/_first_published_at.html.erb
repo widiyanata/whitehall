@@ -1,11 +1,26 @@
 <fieldset>
-  <% if edition.imported? %>
-    <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required' %>
-  <% else %>
-    <%= form.label :first_published_at, "First published" %>
-  <% end %>
-  <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1945, end_year: Date.today.year + 1 }, { class: 'date' } %>
-  <% if edition.first_published_at.blank? && !edition.imported? %>
-    <p class="note">Note: only set this if backdating migrated content that has previously been published elsewhere.</p>
-  <% end %>
+  <legend style="padding-top: 15px; margin-bottom: 15px">Document origin</legend>
+  <div class="well" style="font-size: 13px">
+    <p style="font-weight: bold; margin-bottom: 15px">This document is <span style="color: #f47738">*</span></p>
+    <label class="radio" for="document_new">
+      <input id="document_new" name="origin" type="radio" value="true">
+      A new document, written for the first time and never before published.
+    </label>
+    <label class="radio" style="margin-top: 15px" for="document_old">
+      <input id="document_old" name="origin" type="radio" value="false">
+      An existing document, previously published to another website.
+    </label>
+
+    <div style="margin-left: 20px; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px">
+      <% if edition.imported? %>
+        <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required' %>
+      <% else %>
+        <%= form.label :first_published_at, "First published" %>
+      <% end %>
+      <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1945, end_year: Date.today.year + 1 }, { class: 'date' } %>
+    </div>
+  </div>
+
+
+
 </fieldset>
