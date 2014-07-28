@@ -11,16 +11,13 @@
       An existing document, previously published to another website.
     </label>
 
-    <div style="margin-left: 20px; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px">
+    <div style="margin-left: 18px; margin-top: 15px;">
       <% if edition.imported? %>
         <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required' %>
       <% else %>
-        <%= form.label :first_published_at, "First published" %>
+        <%= form.label :first_published_at, "First published <span>*</span>".html_safe, style: 'font-weight: bold;' %>
       <% end %>
       <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1945, end_year: Date.today.year + 1 }, { class: 'date' } %>
     </div>
   </div>
-
-
-
 </fieldset>
