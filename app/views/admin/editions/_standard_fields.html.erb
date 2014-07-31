@@ -12,18 +12,7 @@
   <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
 
   <%= form.text_area :body, class: "previewable", cols: 9000, required: form.object.body_required? %>
-
-
-  <p style="margin-top: 15px; margin-bottom: 15px;">
-    First published<br />
-    <strong>22:30pm, 13 June 2014</strong> — <a href="#">Edit date</a>
-  </p>
-
-  <p style="margin-top: 15px; margin-bottom: 15px;">
-    First published<br />
-    <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1945, end_year: Date.today.year + 1 }, { class: 'date', style: 'margin-top: 5px' } %>
-  </p>
-
+  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 <% end %>
 

@@ -104,5 +104,16 @@
     <%= render_mustache_templates if Rails.env.development? %>
     <% initialise_script "GOVUK.adminGlobalInitialiser" %>
     <%= javascript_tag(yield :javascript_initialisers) %>
+
+    <script>
+      $('#document-origin').on('change', function() {
+        if ($('#document_old').is(':checked')) {
+          $('#first-published-date').show();
+        } else {
+          $('#first-published-date').hide();
+        }
+      });
+    </script>
+
   </body>
 </html>

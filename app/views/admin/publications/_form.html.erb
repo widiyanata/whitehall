@@ -1,7 +1,6 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
     <%= form.hidden_field :statistics_announcement_id %>
-
     <%= render partial: 'external_fields', locals: { form: form, edition: edition } %>
     <div class="js-external-url-set">
       <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
@@ -21,7 +20,5 @@
       <%= render partial: 'statistical_data_set_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
     </fieldset>
-
-    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
   <% end %>
 <% end %>
