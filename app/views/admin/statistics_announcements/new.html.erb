@@ -3,29 +3,32 @@
 
 <style>
   label {
-    font-weight: bold;
     font-size: 16px;
     margin-bottom: 10px;
   }
 
-  .stats-type-label {
-    width: 250px;
+  .confirmed-date label {
+    font-weight: normal;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .chunky-radio {
     background: #eee;
     display: inline-block;
     padding: 10px 10px 10px 35px;
     font-size: 16px;
     position: relative;
     vertical-align: top;
-    min-height: 103px;
   }
 
-  .stats-type-label input {
+  .chunky-radio input {
     position: absolute;
     top: 10px;
     left: 10px;
   }
 
-  .stats-type-label span {
+  .chunky-radio span {
     display: block;
     font-weight: normal;
     margin-top: 5px;
@@ -35,9 +38,13 @@
   }
 </style>
 
-<div class="span8" style="margin-left: 0">
-  <%= render 'warning' %>
+<div class="span8">
   <h1>New statistics announcement</h1>
-  <p>Use this to make an announcement for a forthcoming statistics release. Statistics announcements are listed <%= link_to 'here' %>.</p>
+  <p style="font-size: 16px; color: #777; margin: 5px 0 -10px">Make an announcement for a forthcoming statistics release.</p>
+  <p class="warning" style="margin-bottom: 30px">
+  Statistics announcements are only for official statistics governed by the UK Statistics Authority.
+  </p>
+
+
   <%= render "form", statistics_announcement: @statistics_announcement %>
 </div>

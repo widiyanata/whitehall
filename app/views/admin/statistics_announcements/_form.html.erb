@@ -5,13 +5,13 @@
   <div class="control-group">
     <%= form.label  :publication_type_id, 'Type', required: true %>
 
-    <label class="stats-type-label">
+    <label class="chunky-radio" style="min-height: 103px; width: 250px;">
       <input type="radio" name="type" />
       Statistics
       <span>Official statistics produced by Government.</span>
     </label>
 
-    <label class="stats-type-label">
+    <label class="chunky-radio" style="width: 250px;">
       <input type="radio" name="type" />
       National Statistics
       <span>Official statistics approved by the UK Statistics Authority. The national statistics logo will display on this document.</span>
@@ -40,6 +40,7 @@
   </div>
   <% if statistics_announcement.new_record? %>
     <%= form.fields_for :current_release_date do |fields| %>
+      <hr />
       <div class="control-group">
         <%= fields.label :release_date, "Release date", required: true %>
         <%= fields.datetime_select :release_date, {
@@ -49,19 +50,34 @@
             default: (Date.tomorrow + 9.5.hours)
           }, { class: 'date' } %>
 
-        <%= fields.check_box :confirmed, label_text: 'Confirmed date?', style: 'font-weight: normal' %>
+        <div class="confirmed-date">
+          <%= fields.check_box :confirmed, label_text: 'Confirmed date?' %>
+        </div>
       </div>
+      <hr />
       <div class="control-group" style="margin-top: 15px">
-        <p style="font-weight: bold;">Display precision</p>
-        <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-          <div>
-          <% checked = statistics_announcement.current_release_date.precision == value %>
-          <%= fields.labelled_radio_button(key.to_s.humanize, :precision, value, checked: checked) %>
-          </div>
-        <% end %>
+        <p style="font-size: 16px;">Display date</p>
+        <label class="chunky-radio" style="width: 200px">
+          <input type="radio" name="type" />
+          Exact
+          <span>1 August 2014 9:30am</span>
+        </label>
+        <label class="chunky-radio" style="width: 200px">
+          <input type="radio" name="type" />
+          One month
+          <span>August 2014</span>
+        </label>
+        <label class="chunky-radio" style="width: 200px">
+          <input type="radio" name="type" />
+          Two month
+          <span>August to September 2014</span>
+        </label>
       </div>
     <% end %>
   <% end %>
 
-  <%= form.save_or_cancel buttons: { save: 'Save announcement' }, cancel: [:admin, statistics_announcement] %>
+  <div class="form-actions">
+    <input class="btn btn-primary btn-large" name="save" type="submit" value="Publish announcement">
+    <a href="/government/admin/statistics_announcements" class="btn btn-default btn-large" style="margin-left: 10px">Cancel</a></span>
+  </div>
 <% end %>
