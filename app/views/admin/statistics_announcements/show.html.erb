@@ -1,17 +1,20 @@
 <% content_for :page_class, 'statistics-announcements-show' %>
 <% page_title "Statistics announcement: #{@statistics_announcement.title}" %>
 
-<%= render 'warning' %>
-
 <div class="span8">
-  <h1><%= @statistics_announcement.title %></h1>
-  <%= link_to "View on website", @statistics_announcement %>
+  <style>
+    .stats-details dt {
+      font-weight: normal;
+    }
+  </style>
+
+  <p style="font-size: 27px; line-height: 30px; color: #777"><%= @statistics_announcement.display_type %></p>
+  <h1 style="width: 630px; margin-bottom: 15px"><%= @statistics_announcement.title %></h1>
+  <%= link_to "View announcement on GOV.UK", @statistics_announcement, style: 'margin-bottom: 30px; display: inline-block; ' %>
 
   <%= render 'document_status', statistics_announcement: @statistics_announcement %>
 
-  <p><%= @statistics_announcement.summary %></p>
-
-  <dl class="dl-horizontal">
+  <dl class="stats-details dl-horizontal" style="font-size: 14px; line-height: 20px;">
     <dt>Release date:</dt>
     <dd>
       <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
@@ -27,19 +30,18 @@
         <%= @statistics_announcement.last_change_note %>
       </dd>
     <% end %>
-    <dt>Type:</dt>
-    <dd><%= @statistics_announcement.display_type %></dd>
     <dt>Organisation:</dt>
     <dd><%= @statistics_announcement.organisation.name %></dd>
     <dt>Topic:</dt>
     <dd><%= @statistics_announcement.topic.name %></dd>
   </dl>
 
-  <div class="form-actions">
-    <%= link_to "Edit", [:edit, :admin, @statistics_announcement], class: "btn btn-primary"%>
-    <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn btn-primary"%>
-    <%= link_to 'Delete announcement', [:admin, @statistics_announcement], method: :delete, class: "btn btn-danger", confirm: 'Are you sure you want to delete this announcement?' %>
-  </div>
+  <p style="font-size: 16px; line-height: 24px; margin-bottom: 30px"><%= @statistics_announcement.summary %></p>
+
+  <p>
+    <a href="#" class="btn btn-default btn-large" style="margin-right: 10px">Change release date</a>
+    <a href="#" class="btn btn-default btn-large">Edit announcement details</a>
+  </p>
 </div>
 
 <div class="span4">
