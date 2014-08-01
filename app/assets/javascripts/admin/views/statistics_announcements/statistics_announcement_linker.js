@@ -21,10 +21,10 @@
       // insert the revealLink at the appropriate point with the appropriate
       // text depending on whether it's linking or changing an existing link
       if($publicationInput.val() == '') {
-        $revealLink.text('Link to an existing draft document');
+        $revealLink.text('link to an existing one');
         $linker.append(' or ').append($revealLink);
       } else {
-        $revealLink.text('Change linked document');
+        $revealLink.html('<span class="btn btn-large">Change document</span>');
         $linker.append('<br />').append($revealLink);
       }
 

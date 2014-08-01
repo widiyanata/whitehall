@@ -9,9 +9,9 @@
   <%= hidden_field_tag :edition_id %>
 
   <div class="document-finder-fields">
-    <%= label_tag :title, 'Find the unpublished statistics to link this announcement to:' %>
-    <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique' %>
-    <%= button_tag "Search", type: 'button', id: 'find-documents', class: 'btn btn-mini' %>
+    <%= label_tag :title, 'Search by title or slug', style: 'font-weight: bold; margin-bottom: 8px'  %>
+    <%= search_field_tag :title, '', results: 10, autosave: 'unique' %>
+    <%= button_tag "Search", type: 'button', id: 'find-documents', class: 'btn btn-default' %>
     <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
     <p class="tip">
       Only the first 10 results are returned - be as specific as you can
