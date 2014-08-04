@@ -1,6 +1,17 @@
 <h1>
   <%= "#{@filter.page_title}" %>
 </h1>
+
+<style>
+.table-header {
+  background-color: $gray-lighter;
+}
+
+thead .table-header-secondary td {
+  border-bottom: 1px solid #ccc;
+}
+</style>
+
 <div class="row-fluid">
   <div class="span7">
     <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
@@ -25,9 +36,9 @@
     </div>
   </div>
 </div>
-<table class="table table-striped">
+<table class="table table-bordered table-striped">
   <thead>
-    <tr>
+    <tr class="table-header">
       <% unless @filter.hide_type %>
         <th class="type">Type</th>
       <% end %>

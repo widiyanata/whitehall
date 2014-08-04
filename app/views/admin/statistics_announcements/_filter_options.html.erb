@@ -1,5 +1,5 @@
-<%= form_tag admin_statistics_announcements_path, class: "filter-options", method: :get do %>
-  <h2>Search</h2>
+<%= form_tag admin_statistics_announcements_path, class: "filter-options", style: 'border: 1px solid #ddd; border-radius: 3px', method: :get do %>
+  <h2>Filter announcements</h2>
 
   <div class="filter-grouping">
     <%= label_tag :search_title, 'Title or slug' %>
@@ -8,6 +8,6 @@
     </div>
   </div>
 
-  <%= submit_tag "Search" %>
-  <p><%= link_to "Reset", admin_statistics_announcements_path %></p>
+  <%= submit_tag "Search", class: 'btn' %>
+  <p style="margin-top: 15px"><%= link_to "Reset", admin_statistics_announcements_path %></p>
 <% end %>
