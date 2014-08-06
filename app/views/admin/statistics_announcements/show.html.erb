@@ -1,4 +1,5 @@
 <% content_for :page_class, 'statistics-announcements-show' %>
+<% cancelled = true %>
 <% page_title "Statistics announcement: #{@statistics_announcement.title}" %>
 
 <div class="span8">
@@ -12,10 +13,15 @@
   <h1 style="width: 630px; margin-bottom: 15px"><%= @statistics_announcement.title %></h1>
   <%= link_to "View announcement on GOV.UK", @statistics_announcement, style: 'margin-bottom: 15px; display: inline-block; ' %>
 
+  <div class="alert alert-danger" style="margin-bottom: 30px; padding: 15px 20px;">
+    <h2>Statistics cancelled</h2>
+    <p style="font-size: 16px; margin-bottom: 10px; line-height: 20px">The necessary data for this statistics release couldn’t be gathered due to inconsistencies with data collection amongst governed bodies.</p>
+  </div>
+
   <dl class="stats-details dl-horizontal" style="font-size: 14px; line-height: 20px;">
     <dt>Release date:</dt>
     <dd>
-      <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
+      <span style="text-decoration: line-through"><%= @statistics_announcement.release_date.to_s(:date_with_time) %></span> Cancelled
     </dd>
     <dt>Display date:</dt>
     <dd>
@@ -36,21 +42,25 @@
 
   <p style="font-size: 16px; line-height: 24px; margin-bottom: 30px"><%= @statistics_announcement.summary %></p>
 
-  <%= render 'document_status', statistics_announcement: @statistics_announcement %>
+  <!--<%= render 'document_status', statistics_announcement: @statistics_announcement %>-->
 
   <p class="form-actions">
-    <a href="#" class="btn btn-default" style="margin-right: 10px">Edit release date</a>
+    <a href="#" class="btn btn-default" style="margin-right: 10px">Edit cancellation reason</a>
     <a href="#" class="btn btn-default" style="margin-right: 10px">Edit announcement details</a>
-    <a href="#" class="pull-right btn btn-default">Cancel statistics release</a>
   </p>
 </div>
 
 <div class="span4">
-  <h3>Release date history</h3>
+  <h3 style="margin-bottom: 20px">History</h3>
   <ul class="release-date-changes">
+    <li>
+      Announcement cancelled<br />
+      <a href="#">Paul Hayes</a>
+      28 June 2014 11:27am
+    </li>
     <% @statistics_announcement.statistics_announcement_dates.reverse.each do |previous_date| %>
       <li>
-        Date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
+        Release date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
         <a href="#">Paul Hayes</a>
         <%= absolute_time(previous_date.created_at, class: "created_at") %>
       </li>
