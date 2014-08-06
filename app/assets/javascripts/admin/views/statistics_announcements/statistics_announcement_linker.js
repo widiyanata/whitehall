@@ -24,7 +24,7 @@
         $revealLink.text('link to an existing one');
         $linker.append(' or ').append($revealLink);
       } else {
-        $revealLink.html('<span class="btn btn-large">Change document</span>');
+        $revealLink.html('<span class="btn btn-default">Change document</span>');
         $linker.append('<br />').append($revealLink);
       }
 

@@ -1,0 +1,29 @@
+<% content_for :page_class, 'statistics-announcements edit' %>
+<% page_title "Cancel statistics release" %>
+
+<div class="span8">
+
+  <style>
+    label {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  </style>
+
+  <h1>Cancel statistics release</h1>
+  <p style="font-size: 27px; line-height: 30px; margin-bottom: 30px; color: #777"><%= @statistics_announcement.title %></p>
+
+  <form>
+    <div class="form-group">
+      <label>Official reason for cancellation</label>
+      <textarea rows="5" cols="40"></textarea>
+    </div>
+
+    <div class="form-actions" style="margin-top: 30px">
+      <p style="font-size: 16px; margin: 0 0 30px; line-height: 24px">Cancelled announcements will show on GOV.UK until one month after their release date. The cancellation reason will be visible on the announcement.</p>
+      <a href="#" class="btn btn-large btn-danger">Publish cancellation</a>
+      <a href="#" style="margin-left: 10px" class="btn btn-large btn-default">Don’t cancel</a>
+    </div>
+  </form>
+
+</div>

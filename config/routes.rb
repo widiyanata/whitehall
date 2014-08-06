@@ -286,6 +286,7 @@ Whitehall::Application.routes.draw do
 
         resources :statistics_announcements do
           resources :statistics_announcement_date_changes, as: 'changes', path: 'changes'
+          get :cancel, on: :member
         end
 
         resources :suggestions, only: [:index]

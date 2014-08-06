@@ -1,5 +1,5 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
+  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy, :cancel]
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
@@ -22,6 +22,9 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def edit
+  end
+
+  def cancel
   end
 
   def update
