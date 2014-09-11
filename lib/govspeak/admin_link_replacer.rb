@@ -44,14 +44,15 @@ module Govspeak
     end
 
     def convert_link_for_corporate_information_page(anchor, organisation_slug, slug, &block)
-      organisation = Organisation.find_by_slug(organisation_slug)
-      corporate_info_page = organisation.corporate_information_pages.find(slug)
-
-      convert_link_for_edition(anchor, corporate_info_page, &block)
+      convert_link_for_information_page(Organisation, anchor, organisation_slug, slug, &block)
     end
 
     def convert_link_for_worldwide_corporate_information_page(anchor, world_org_slug, slug, &block)
-      organisation = WorldwideOrganisation.find_by_slug(world_org_slug)
+      convert_link_for_information_page(WorldwideOrganisation, anchor, world_org_slug, slug, &block)
+    end
+
+    def convert_link_for_information_page(organisation_class, anchor, organisation_slug, slug, &block)
+      organisation = organisation_class.find_by_slug(organisation_slug)
       corporate_info_page = organisation.corporate_information_pages.find(slug)
 
       convert_link_for_edition(anchor, corporate_info_page, &block)

@@ -1,4 +1,6 @@
 class Admin::SocialMediaAccountsController < Admin::BaseController
+  include OrganisationFinder
+
   before_filter :find_socialable
   before_filter :find_social_media_account, only: [:edit, :update, :destroy]
   before_filter :strip_whitespace_from_url
@@ -46,14 +48,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
 private
 
   def find_socialable
-    @socialable =
-      if params.has_key?(:organisation_id)
-        Organisation.find(params[:organisation_id])
-      elsif params.has_key?(:worldwide_organisation_id)
-        WorldwideOrganisation.find(params[:worldwide_organisation_id])
-      else
-        raise ActiveRecord::RecordNotFound
-      end
+    @socialable = find_org(params)
   end
 
   def find_social_media_account

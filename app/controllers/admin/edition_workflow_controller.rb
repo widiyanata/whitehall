@@ -60,12 +60,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def publish
     edition_publisher = Whitehall.edition_services.publisher(@edition)
-    if edition_publisher.perform!
-      redirect_to admin_editions_path(session_filters || { state: :published }),
-        notice: "The document #{@edition.title} has been published"
-    else
-      redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
-    end
+
+    redirect_options = session_filters || { state: :published }
+    arrange_for_publication(edition_publisher, redirect_options, "published")
   end
 
   def confirm_force_publish
@@ -73,11 +70,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def force_publish
     edition_publisher = Whitehall.edition_services.force_publisher(@edition, user: current_user, remark: force_publish_reason)
-    if edition_publisher.perform!
-      redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
-    else
-      redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
-    end
+    arrange_for_publication(edition_publisher, { state: :published }, "published")
   end
 
   def confirm_unpublish
@@ -98,29 +91,17 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def schedule
     edition_scheduler = Whitehall.edition_services.scheduler(@edition)
-    if edition_scheduler.perform!
-      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
-    else
-      redirect_to admin_edition_path(@edition), alert: edition_scheduler.failure_reason
-    end
+    arrange_for_publication(edition_scheduler, { state: :scheduled }, "scheduled for publication")
   end
 
   def force_schedule
     force_scheduler = Whitehall.edition_services.force_scheduler(@edition)
-    if force_scheduler.perform!
-      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been force scheduled for publication"
-    else
-      redirect_to admin_edition_path(@edition), alert: force_scheduler.failure_reason
-    end
+    arrange_for_publication(force_scheduler, { state: :scheduled }, "force scheduled for publication")
   end
 
   def unschedule
     unscheduler = Whitehall.edition_services.unscheduler(@edition)
-    if unscheduler.perform!
-      redirect_to admin_editions_path(state: :submitted), notice: "The document #{@edition.title} has been unscheduled"
-    else
-      redirect_to admin_edition_path(@edition), alert: unscheduler.failure_reason
-    end
+    arrange_for_publication(unscheduler, { state: :submitted }, "unscheduled")
   end
 
   def approve_retrospectively
@@ -139,6 +120,14 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   private
+
+  def arrange_for_publication(publisher, redirect_path_options, message)
+    if publisher.perform!
+      redirect_to admin_editions_path(redirect_path_options), notice: "The document #{@edition.title} has been #{message}"
+    else
+      redirect_to admin_edition_path(@edition), alert: publisher.failure_reason
+    end
+  end
 
   def force_publish_reason
     "Force published: #{params[:reason]}"

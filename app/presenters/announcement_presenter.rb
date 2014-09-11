@@ -15,13 +15,4 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
       "Field of operation: #{context.link_to(model.operational_field.name, model.operational_field)}"
     end
   end
-
-  def publication_collections
-    if model.respond_to?(:part_of_published_collection?) && model.part_of_published_collection?
-      links = model.published_document_collections.map do |dc|
-        context.link_to(dc.title, context.public_document_path(dc))
-      end
-      "Part of a collection: #{links.to_sentence}"
-    end
-  end
 end

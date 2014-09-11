@@ -1,5 +1,7 @@
 module Whitehall::Uploader
   class PublicationRow < Row
+    include UploaderHelpers
+
     def self.validator
       super
         .multiple("policy_#", 0..20)
@@ -48,10 +50,6 @@ module Whitehall::Uploader
       organisations.first
     end
 
-    def world_locations
-      Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
-    end
-
     def html_title
       row['html_title']
     end
@@ -86,24 +84,6 @@ module Whitehall::Uploader
 
     def policy_slugs
       row.to_hash.select {|k, v| k =~ /^policy_\d+$/ }.values
-    end
-
-    def attachments_from_json
-      if row["json_attachments"]
-        attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
-        attachment_data.map do |attachment|
-          Builders::AttachmentBuilder.build({title: attachment["title"]}, attachment["link"], @attachment_cache, @logger, @line_number)
-        end
-      else
-        []
-      end
-    end
-
-    def attachments_from_columns
-      1.upto(Row::ATTACHMENT_LIMIT).map do |number|
-        next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
-        Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
-      end.compact
     end
 
     def apply_meta_data_to_attachment(attachment)

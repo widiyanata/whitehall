@@ -17,22 +17,12 @@ class Admin::ContactsController < Admin::BaseController
 
   def update
     @contact.update_attributes(contact_params)
-    if @contact.save
-      handle_show_on_home_page_param
-      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" updated successfully}
-    else
-      render :edit
-    end
+    persist_and_display_contact(@contact, %{"#{@contact.title}" updated successfully})
   end
 
   def create
     @contact = @contactable.contacts.build(contact_params)
-    if @contact.save
-      handle_show_on_home_page_param
-      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" created successfully}
-    else
-      render :edit
-    end
+    persist_and_display_contact(@contact, %{"#{@contact.title}" created successfully})
   end
 
   def destroy
@@ -51,6 +41,15 @@ class Admin::ContactsController < Admin::BaseController
     redirect_to: ->(container, item) { [:admin, container, Contact] }
 
 private
+
+  def persist_and_display_contact(contact, message)
+    if contact.save
+      handle_show_on_home_page_param
+      redirect_to [:admin, contact.contactable, Contact], notice: message
+    else
+      render :edit
+    end
+  end
 
   def find_contactable
     @contactable = Organisation.find(params[:organisation_id])

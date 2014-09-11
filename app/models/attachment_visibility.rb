@@ -89,18 +89,18 @@ class AttachmentVisibility
   end
 
   def visible_edition_scope
-    if user
-      Edition.accessible_to(user).where(id: edition_ids)
-    else
-      Edition.publicly_visible.where(id: edition_ids)
-    end
+    visible_scope(edition_ids)
   end
 
   def visible_consultation_scope
+    visible_scope(consultation_ids)
+  end
+
+  def visible_scope(ids)
     if user
-      Edition.accessible_to(user).where(id: consultation_ids)
+      Edition.accessible_to(user).where(id: ids)
     else
-      Edition.publicly_visible.where(id: consultation_ids)
+      Edition.publicly_visible.where(id: ids)
     end
   end
 

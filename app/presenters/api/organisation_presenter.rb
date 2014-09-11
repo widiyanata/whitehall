@@ -28,19 +28,18 @@ class Api::OrganisationPresenter < Api::BasePresenter
 
 private
   def parent_organisations
-    model.parent_organisations.map do |parent|
-      {
-        id: context.api_organisation_url(parent),
-        web_url: Whitehall.url_maker.organisation_url(parent)
-      }
-    end
+    relative_organisations("parent")
   end
 
   def child_organisations
-    model.child_organisations.map do |child|
+    relative_organisations("child")
+  end
+
+  def relative_organisations(relative)
+    model.public_send("#{relative}_organisations").map do |org|
       {
-        id: context.api_organisation_url(child),
-        web_url: Whitehall.url_maker.organisation_url(child)
+        id: context.api_organisation_url(org),
+        web_url: Whitehall.url_maker.organisation_url(org)
       }
     end
   end

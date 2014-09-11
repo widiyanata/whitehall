@@ -10,8 +10,7 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_document_path(edition, options = {})
-    query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
-    document_path(edition, options.merge(query))
+    document_path(edition, options.merge(preview_document_query(edition)))
   end
 
   def document_url(edition, options = {})
@@ -43,14 +42,17 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_document_url(edition, options = {})
-    query = {
-      preview: edition.latest_edition.id,
-      cachebust: Time.zone.now.getutc.to_i
-    }
-    document_url(edition, options.merge(query))
+    document_url(edition, options.merge(preview_document_query(edition)))
   end
 
   private
+
+  def preview_document_query(edition)
+    {
+      preview: edition.latest_edition.id,
+      cachebust: Time.zone.now.getutc.to_i
+    }
+  end
 
   def build_url_for_corporate_information_page(edition, options)
     org = edition.owning_organisation

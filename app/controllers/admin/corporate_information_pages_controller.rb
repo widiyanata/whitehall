@@ -1,4 +1,6 @@
 class Admin::CorporateInformationPagesController < Admin::EditionsController
+  include OrganisationFinder
+
   prepend_before_filter :find_organisation
 
   class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
@@ -34,14 +36,7 @@ private
   end
 
   def find_organisation
-    @organisation =
-      if params.has_key?(:organisation_id)
-        Organisation.find(params[:organisation_id])
-      elsif params.has_key?(:worldwide_organisation_id)
-        WorldwideOrganisation.find(params[:worldwide_organisation_id])
-      else
-        raise ActiveRecord::RecordNotFound
-      end
+    @organisation = find_org(params)
   end
 
   def document_can_be_previously_published

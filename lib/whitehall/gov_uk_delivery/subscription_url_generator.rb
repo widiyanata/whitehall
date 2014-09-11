@@ -62,17 +62,17 @@ module Whitehall
       end
 
       def announcement_filter_options
-        {
-          announcement_filter_option:
-          Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types).slug
-        } if Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types)
+        filter_options("announcement", Whitehall::AnnouncementFilterOption)
       end
 
       def publication_filter_options
-        {
-          publication_filter_option:
-          Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types).slug
-        } if Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types)
+        filter_options("publication", Whitehall::PublicationFilterOption)
+      end
+
+      def filter_options(document_type, filter_options_class)
+        key = "#{document_type}_filter_option".to_sym
+        result = filter_options_class.find_by_search_format_types(edition.search_format_types)
+        {}.tap { |h| h[key] = result.slug } if result
       end
 
       def all_combinations_of_args(args)

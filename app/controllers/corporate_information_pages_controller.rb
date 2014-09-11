@@ -1,4 +1,6 @@
 class CorporateInformationPagesController < DocumentsController
+  include OrganisationFinder
+
   prepend_before_filter :find_organisation
   before_filter :set_slimmer_headers_for_document, only: [:show, :index]
 
@@ -48,13 +50,6 @@ private
   end
 
   def find_organisation
-    @organisation =
-      if params.has_key?(:organisation_id)
-        Organisation.find(params[:organisation_id])
-      elsif params.has_key?(:worldwide_organisation_id)
-        WorldwideOrganisation.find(params[:worldwide_organisation_id])
-      else
-        raise ActiveRecord::RecordNotFound
-      end
+    @organisation = find_org(params)
   end
 end

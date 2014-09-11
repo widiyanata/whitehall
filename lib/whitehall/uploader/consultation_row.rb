@@ -1,5 +1,7 @@
 module Whitehall::Uploader
   class ConsultationRow < Row
+    include UploaderHelpers
+
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
@@ -28,10 +30,6 @@ module Whitehall::Uploader
 
     def closing_at
       Parsers::DateParser.parse(row['closing_date'], @logger, @line_number)
-    end
-
-    def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'])
     end
 
     def alternative_format_provider

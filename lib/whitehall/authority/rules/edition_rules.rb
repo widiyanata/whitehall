@@ -58,18 +58,7 @@ module Whitehall::Authority::Rules
     end
 
     def gds_editor_can?(action)
-      case action
-      when :approve
-        can_approve?
-      when :publish
-        can_publish?
-      when :force_publish
-        can_force_publish?
-      when :unpublish
-        false
-      else
-        true
-      end
+      editor_can?(action)
     end
 
     def can_approve?
@@ -121,18 +110,7 @@ module Whitehall::Authority::Rules
     end
 
     def departmental_editor_can?(action)
-      case action
-      when :approve
-        can_approve?
-      when :publish
-        can_publish?
-      when :force_publish
-        can_force_publish?
-      when :unpublish
-        false
-      else
-        true
-      end
+      editor_can?(action)
     end
 
     def managing_editor_can?(action)
@@ -162,6 +140,21 @@ module Whitehall::Authority::Rules
         can_publish?
       else
         false
+      end
+    end
+
+    def editor_can?(action)
+      case action
+      when :approve
+        can_approve?
+      when :publish
+        can_publish?
+      when :force_publish
+        can_force_publish?
+      when :unpublish
+        false
+      else
+        true
       end
     end
   end
