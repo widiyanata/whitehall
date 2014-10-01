@@ -7,12 +7,19 @@
 <div class="row-fluid">
   <div class="span3 span3-responsive">
     <%= form_tag admin_statistics_announcements_path, class: "filter-options", method: :get do %>
-    <h2>Filter</h2>
+    <h2 class="remove-top-margin remove-bottom-margin">Filter</h2>
 
     <div class="filter-grouping">
       <%= label_tag :search_title, 'Title or slug' %>
       <div class="btn-enter-wrapper">
         <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
+      </div>
+
+      <%= label_tag :search_title, 'Release date' %>
+      <div class="btn-enter-wrapper">
+        <%= select_tag :organisation_id,
+                       options_for_select([ "All announcements", "Future release", "Past release" ], "All announcements"),
+                       class: "chzn-select" %>
       </div>
 
       <%= label_tag :organisation_id %>
@@ -25,10 +32,15 @@
 
     <%= submit_tag 'Search', class: 'btn add-bottom-margin' %>
     <p><%= link_to "Reset", admin_statistics_announcements_path %></p>
-  <% end %>
+    <% end %>
   </div>
 
   <div class="span9" id="search_results">
+
+    <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
+      There are <a href="#" class="link-inherit">5 statistics releases</a> in the next four weeks without an attached document.
+    </div>
+
     <% if @statistics_announcements.present? %>
       <table class="statistics-announcements table table-striped">
 
@@ -43,6 +55,22 @@
           </tr>
         </thead>
         <tbody>
+          <tr class="statistics_announcement warning" id="statistics_announcement_6">
+            <td>
+              <a href="/government/admin/statistics_announcements/monthly-statistics-of-building-materials-and-components-no-476-october-2014">Building materials and components statistics: October 2014</a>
+
+            </td>
+            <td>
+                <strong>(no document)</strong>
+            </td>
+            <td>Department for Business, Innovation &amp; Skills</td>
+            <td>Business and enterprise</td>
+            <td>
+              5 November 2014 9:30am
+              (confirmed)
+            </td>
+            <td>5 November 2014 09:30</td>
+          </tr>
           <% @statistics_announcements.each do |statistics_announcement| %>
             <%= content_tag_for :tr, statistics_announcement do %>
               <td>

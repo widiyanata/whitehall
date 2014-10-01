@@ -11,6 +11,7 @@ module Admin
       scope = unfiltered_scope
       scope = scope.with_title_containing(options[:title]) if options[:title]
       scope = scope.where(organisation_id: options[:organisation_id]) if options[:organisation_id].present?
+      scope = scope.order(current_release_date: :release_date).page(options[:page])
       scope
     end
 
@@ -18,8 +19,6 @@ module Admin
 
     def unfiltered_scope
       StatisticsAnnouncement.includes(:current_release_date)
-                            .order(current_release_date: :release_date)
-                            .page(options[:page])
     end
   end
 end
