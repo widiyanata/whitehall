@@ -15,6 +15,13 @@
         <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
       </div>
 
+      <%= label_tag :organisation_id %>
+      <div class="btn-enter-wrapper">
+        <%= select_tag :organisation_id,
+                       admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
+                       class: "chzn-select" %>
+      </div>
+
       <%= label_tag :search_title, 'Release date' %>
       <div class="btn-enter-wrapper">
         <%= select_tag :organisation_id,
@@ -22,12 +29,11 @@
                        class: "chzn-select" %>
       </div>
 
-      <%= label_tag :organisation_id %>
-      <div class="btn-enter-wrapper">
-        <%= select_tag :organisation_id,
-                       admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
-                       class: "chzn-select" %>
-      </div>
+      <%= label_tag :search_title, 'Document' %>
+      <label class="checkbox remove-top-margin" style="font-weight: normal">
+        <input type="checkbox" style="width: auto; margin-top: 9px"> Announcements missing a document
+      </label>
+
     </div>
 
     <%= submit_tag 'Search', class: 'btn add-bottom-margin' %>
