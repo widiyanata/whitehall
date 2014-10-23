@@ -49,7 +49,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 private
 
   def unlinked_announcements_count
-    Admin::StatisticsAnnouncementFilter.new(dates: 'four-weeks', unlinked_only: '1', organisation_id: filter_params[:organisation_id]).statistics_announcements.count
+    Admin::StatisticsAnnouncementFilter.new(dates: 'four-weeks', unlinked_only: '1', organisation_id: filter_params[:organisation_id]).statistics_announcements.total_count
   end
 
   def find_statistics_announcement
