@@ -28,6 +28,7 @@
                                  ["All announcements", nil],
                                  ["Future releases", 'future'],
                                  ["Past releases", 'past'],
+                                 ["Next 4 weeks", 'four-weeks'],
                                ], @filter.options[:dates]),
                                class: "chzn-select" %>
       </div>
@@ -46,8 +47,16 @@
 
   <div class="span9" id="search_results">
     <% if @statistics_announcements.present? %>
-      <table class="statistics-announcements table table-striped">
 
+      <% if unlinked_announcements_count > 0 %>
+        <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
+          There are
+          <%= link_to "#{unlinked_announcements_count} statistics releases", admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
+          in the next four weeks without an attached document.
+        </div>
+      <% end %>
+
+      <table class="statistics-announcements table table-striped">
         <thead>
           <tr class="table-header">
             <th>Announcement title</th>
