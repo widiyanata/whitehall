@@ -1,5 +1,5 @@
 <% page_title "Statistics announcements" %>
-<h1>Statistics announcements</h1>
+<h1>My department’s statistics announcements</h1>
 <%= render 'warning' %>
 
 <%= link_to "Create announcement", new_admin_statistics_announcement_path, class: "btn btn-large add-bottom-margin", title: "Create a statistics announcement" %>
@@ -46,13 +46,27 @@
   </div>
 
   <div class="span9" id="search_results">
+
+    <% if @filter.options[:dates] == 'past' %>
+      <h2 class="add-bottom-margin"><%= @statistics_announcements.total_count %> statistics released<% if @filter.options[:unlinked_only] %> (without a publication)<% end %></h2>
+    <% elsif @filter.options[:dates] != '' %>
+      <h2 class="add-bottom-margin"><%= @statistics_announcements.total_count %> statistics releases due <% if @filter.options[:dates] == "four-weeks"%> in four weeks<% end %><% if @filter.options[:unlinked_only] %> (without a publication)<% end %></h2>
+    <% else %>
+      <h2 class="add-bottom-margin"><%= @statistics_announcements.total_count %> statistics announcements<% if @filter.options[:unlinked_only] %> (without a publication)<% end %></h2>
+    <% end %>
+
+    <!--<h2 class="add-bottom-margin"><%= @statistics_announcements.size %> statistics releases due</h2>
+    <h2 class="add-bottom-margin"><%= @statistics_announcements.size %> statistics releases due <% if @filter.options[:unlinked_only] %> (without a publication)<% end %></h2>
+    <h2 class="add-bottom-margin"><%= @statistics_announcements.size %> statistics releases due in four weeks (without a publication)</h2>
+    <h2 class="add-bottom-margin"><%= @statistics_announcements.size %> statistics released in the past</h2>
+    <h2 class="add-bottom-margin"><%= @statistics_announcements.size %> statistics announcements</h2>-->
+
     <% if @statistics_announcements.present? %>
 
       <% if unlinked_announcements_count > 0 %>
         <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
-          There are
-          <%= link_to "#{unlinked_announcements_count} statistics releases", admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
-          in the next four weeks without an attached document.
+          <%= link_to "#{unlinked_announcements_count} imminent statistics releases", admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
+          need a publication
         </div>
       <% end %>
 
@@ -64,7 +78,7 @@
             <th>Organisations</th>
             <th>Topics</th>
             <th>Display date</th>
-            <th>Release date</th>
+            <th style="background-color: #ddd">Release date <i class="icon-chevron-down pull-right"></i></th>
           </tr>
         </thead>
         <tbody>
