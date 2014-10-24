@@ -73,36 +73,36 @@
       <table class="statistics-announcements table table-striped">
         <thead>
           <tr class="table-header">
+            <th style="background-color: #ddd">Release date <i class="icon-chevron-down pull-right"></i></th>
             <th>Announcement title</th>
-            <th>Document</th>
+            <th>Publication</th>
             <th>Organisations</th>
             <th>Topics</th>
-            <th>Display date</th>
-            <th style="background-color: #ddd">Release date <i class="icon-chevron-down pull-right"></i></th>
           </tr>
         </thead>
         <tbody>
           <% @statistics_announcements.each do |statistics_announcement| %>
-            <%= content_tag_for :tr, statistics_announcement, class: "statistics_announcement #{'warning' unless statistics_announcement.publication}" do %>
+            <%= content_tag_for :tr, statistics_announcement, class: "statistics_announcement" do %>
+              <td><%= statistics_announcement.release_date.to_s(:long_ordinal) %></td>
               <td>
-                <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
+                <strong style="font-size: 14px"><%= link_to statistics_announcement.title, [:admin, statistics_announcement] %></strong>
                 <%= content_tag(:span, "cancelled", class: "badge badge-important add-left-margin") if statistics_announcement.cancelled? %>
+                <div class="muted"><%= statistics_announcement.display_date %>
+                (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)</div>
               </td>
-              <td>
+              <td class="">
+
                 <% if publication = statistics_announcement.publication %>
                   <%= link_to(publication.title, [:admin, publication]) %>
                   (<%= publication.current_state %>)
                 <% else %>
-                  <strong>(no document)</strong>
+                  <div style="padding: 5px 8px" class="alert alert-warning remove-bottom-margin bold">No&nbsp;publication</div>
                 <% end %>
+
               </td>
               <td><%= organisations_list(statistics_announcement.organisations) %></td>
               <td><%= statistics_announcement.topics.map(&:name).to_sentence %></td>
-              <td>
-                <%= statistics_announcement.display_date %>
-                (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
-              </td>
-              <td><%= statistics_announcement.release_date.to_s(:long_ordinal) %></td>
+
             <% end %>
           <% end %>
         </tbody>
