@@ -647,9 +647,9 @@ cy:
       our_governance: Ein trefn lywodraethu
       personal_information_charter: Siarter gwybodaeth bersonol
       petitions_and_campaigns: Deisebau ac ymgyrchoedd
-      procurement: Caffael yn %{organisation_name}
+      procurement: Caffael yn y %{organisation_name}
       publication_scheme: Cynllun cyhoeddi
-      recruitment: Yn gweithio i %{organisation_name}
+      recruitment: Gweithio i'r %{organisation_name}
       research: Ymchwil yn %{organisation_name}
       social_media_use: Defnydd o gyfryngau cymdeithasol
       staff_update: Gwybodaeth a newyddion staff
