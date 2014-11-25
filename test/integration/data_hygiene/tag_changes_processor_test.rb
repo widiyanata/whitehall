@@ -10,6 +10,9 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
   setup do
     @published_edition = create(:published_publication)
     @draft_edition = create(:draft_publication)
+    @published_edition2 = create(:published_publication)
+    @draft_edition2 = create(:draft_publication)
+
     @gds_user = create(:user, email: 'govuk-whitehall@digital.cabinet-office.gov.uk')
   end
 
@@ -37,13 +40,24 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
   end
 
   test "#process - processes the csv file containing new and old topics" do
-    create(:specialist_sector, tag: 'oil-and-gas/offshore', edition: @draft_edition)
-    create(:specialist_sector, tag: 'oil-and-gas/offshore', edition: @published_edition)
     tag_changes_file =  Rails.root.join('test', 'fixtures', 'data_hygiene', 'tag_changes.csv')
+    old_tag_1 = 'oil-and-gas/offshore'
+    new_tag_1 = 'oil-and-gas/really-far-out'
+    old_tag_2 = 'oil-and-gas/inshore'
+    new_tag_2 = 'oil-and-gas/on-the-beach'
 
-    panopticon_request = stub_registration(@published_edition, ['oil-and-gas/really-far-out'])
+    create(:specialist_sector, tag: old_tag_1, edition: @draft_edition)
+    create(:specialist_sector, tag: old_tag_1, edition: @published_edition)
+    create(:specialist_sector, tag: old_tag_2, edition: @draft_edition2)
+    create(:specialist_sector, tag: old_tag_2, edition: @published_edition2)
 
-    processor = TagChangesProcessor.new(tag_changes_file, 'oil-and-gas/offshore', 'oil-and-gas/really-far-out')
+    panopticon_request = stub_registration(@published_edition, [new_tag_1])
+    panopticon_request2 = stub_registration(@published_edition2, [new_tag_2])
+
+    PublishingApiWorker.expects(:perform_async).with(@published_edition.class.name, @published_edition.id).once
+    PublishingApiWorker.expects(:perform_async).with(@published_edition2.class.name, @published_edition2.id).once
+
+    processor = TagChangesProcessor.new(tag_changes_file)
 
     stub_logging(processor)
     processor.process
@@ -52,18 +66,31 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     [@published_edition, @draft_edition].each do |edition|
       edition.reload
       assert edition.editorial_remarks.any?
-      assert edition.specialist_sectors.map(&:tag) == ['oil-and-gas/really-far-out']
+      assert edition.specialist_sectors.map(&:tag) == [new_tag_1]
+    end
+    assert_requested panopticon_request2
+    [@published_edition2, @draft_edition2].each do |edition|
+      edition.reload
+      assert edition.editorial_remarks.any?
+      assert edition.specialist_sectors.map(&:tag) == [new_tag_2]
     end
 
-    # expected_logs = [
-    #   %{Updating 2 taggings of editions (1 published) to change oil-and-gas/offshore to oil-and-gas/really-far-out},
-    #   %{tagging '#{@draft_edition.title}' edition #{@draft_edition.id}},
-    #   %{ - adding editorial remark},
-    #   %{tagging '#{@published_edition.title}' edition #{@published_edition.id}},
-    #   %{ - adding editorial remark},
-    #   %{registering '#{@published_edition.title}'},
-    # ]
-    # assert processor.logs == expected_logs
+    expected_logs = [
+      %{Updating 2 taggings of editions (1 published) to change #{old_tag_1} to #{new_tag_1}},
+      %{tagging '#{@draft_edition.title}' edition #{@draft_edition.id}},
+      %{ - adding editorial remark},
+      %{tagging '#{@published_edition.title}' edition #{@published_edition.id}},
+      %{ - adding editorial remark},
+      %{registering '#{@published_edition.title}'},
+      %{Updating 2 taggings of editions (1 published) to change #{old_tag_2} to #{new_tag_2}},
+      %{tagging '#{@draft_edition2.title}' edition #{@draft_edition2.id}},
+      %{ - adding editorial remark},
+      %{tagging '#{@published_edition2.title}' edition #{@published_edition2.id}},
+      %{ - adding editorial remark},
+      %{registering '#{@published_edition2.title}'},
+    ]
+
+    assert processor.logs == expected_logs
   end
 
 end

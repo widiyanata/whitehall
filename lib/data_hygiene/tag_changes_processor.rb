@@ -1,24 +1,24 @@
 class TagChangesProcessor
 
-  def initialize(csv_location, source_topic_id = "", destination_topic_id = "")
+  def initialize(csv_location)
     @csv_location = csv_location
-    @source_topic_id = source_topic_id
-    @destination_topic_id = destination_topic_id
+    @source_topic_id = ''
+    @destination_topic_id = ''
   end
 
   attr_reader :csv_location
-  attr :source_topic_id, :destination_topic_id
+  attr_accessor :source_topic_id, :destination_topic_id
 
   def process
     CSV.foreach(csv_location, headers: true) do |taggings|
-      source_topic_id = taggings["add_topic"]
-      destination_topic_id = taggings["remove_topic"]
+      self.source_topic_id = taggings["add_topic"]
+      self.destination_topic_id = taggings["remove_topic"]
 
-      # p "source_topic_id: #{source_topic_id}"
-      # p "destination_topic_id: #{destination_topic_id}"
       processor
     end
   end
+
+  private
 
   def processor
     taggings, published_editions = get_taggings_and_editions(source_topic_id)
@@ -27,8 +27,6 @@ class TagChangesProcessor
     update_taggings(taggings)
     register_editions(published_editions)
   end
-
-  private
 
   def update_taggings(taggings)
     taggings.reject { |tagging| tagging.edition.nil? }.each do |tagging|
@@ -54,12 +52,24 @@ class TagChangesProcessor
     editions.each do |edition|
       log "registering '#{edition.slug}'"
       edition.reload
-      registerable_edition = RegisterableEdition.new(edition)
-      registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
-      registerer.register(registerable_edition)
-
-      ServiceListeners::SearchIndexer.new(edition).index!
+      register_with_panopticon(edition)
+      register_with_publishing_api(edition)
+      register_with_search(edition)
     end
+  end
+
+  def register_with_panopticon(edition)
+    registerable_edition = RegisterableEdition.new(edition)
+    registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
+    registerer.register(registerable_edition)
+  end
+
+  def register_with_publishing_api(edition)
+    PublishingApiWorker.perform_async(edition.class.name, edition.id)
+  end
+
+  def register_with_search(edition)
+    ServiceListeners::SearchIndexer.new(edition).index!
   end
 
   def remove_tagging(tagging)
