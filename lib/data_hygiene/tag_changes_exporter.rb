@@ -20,7 +20,9 @@ private
   end
 
   def tagged_to_topic
-    Edition.published.joins(:specialist_sectors).where(specialist_sectors: { tag: topic_id_to_remove })
+    Edition.published
+    .joins(:specialist_sectors)
+    .where(specialist_sectors: { tag: topic_id_to_remove })
   end
 
   def headers

@@ -13,7 +13,7 @@ class TagChangesExporterTest < ActiveSupport::TestCase
   end
 
   test "#export - exports the tag changes to make in CSV format" do
-    TagChangesExporter.new(@topic_id_to_add, @topic_id_to_remove)
+    TagChangesExporter.new(@topic_id_to_add, @topic_id_to_remove).export
 
     assert_equal expected_parsed_export, parsed_export
   end
