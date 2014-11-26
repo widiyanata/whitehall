@@ -26,12 +26,12 @@ private
   end
 
   def headers
-    %w(slug add_topic remove_topic)
+    %w(id type slug add_topic remove_topic)
   end
 
   def taggings
-    tagged_to_topic.each_with_object([]) do |tagging, result|
-      result << [tagging.slug, topic_id_to_add, tagging.primary_specialist_sector_tag]
+    tagged_to_topic.each_with_object([]) do |edition, result|
+      result << [edition.id, edition.type, edition.slug, topic_id_to_add, edition.primary_specialist_sector_tag]
     end
   end
 end
