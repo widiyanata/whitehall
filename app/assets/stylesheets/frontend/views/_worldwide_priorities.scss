@@ -2,7 +2,7 @@
   #case-studies {
     h1 {
       // from _document.scss h2
-      @include ig-core-27;
+      @include core-27;
       color: lighten($text-colour, 50%);
       margin-top: $gutter;
       @media (max-width: 640px) {
@@ -12,7 +12,7 @@
     li {
       // from _document.scss li
       width: 90%;
-      @include ig-core-19;
+      @include core-19;
       margin-left: $gutter*1.2;
 
       li {

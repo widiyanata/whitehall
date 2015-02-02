@@ -13,7 +13,7 @@
 
     a {
       display: block;
-      @include ig-core-24;
+      @include core-24;
       padding: $gutter-half 0 $gutter-half ($gutter-half + 2px);
       margin: 0 2px;
       background: $panel-colour;
@@ -30,7 +30,7 @@
       &.current {
         position: relative;
         margin-bottom: -1px;
-        @include ig-core-24;
+        @include core-24;
         padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half + 1px);
         border: 1px solid $border-colour;
         border-bottom: none;

@@ -46,7 +46,7 @@
 
   .policies {
     h1 {
-      @include ig-core-27;
+      @include core-27;
       font-weight: bold;
 
       .count {
@@ -58,7 +58,7 @@
 
   .what {
     p {
-      @include ig-core-24;
+      @include core-24;
       margin: 0;
       &:first-child {
         padding-top: 0;
@@ -68,7 +68,7 @@
 
   .detailed-guidance {
     h1 {
-      @include ig-core-27;
+      @include core-27;
       font-weight: bold;
     }
     h2 {
@@ -76,7 +76,7 @@
     }
 
     .collection-item {
-      @include ig-core-16;
+      @include core-16;
     }
   }
 

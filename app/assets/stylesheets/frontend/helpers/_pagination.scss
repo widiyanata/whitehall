@@ -50,7 +50,7 @@
 
       span {
         display: block;
-        @include ig-core-14;
+        @include core-14;
       }
       &:focus .page-numbers,
       &:hover .page-numbers {

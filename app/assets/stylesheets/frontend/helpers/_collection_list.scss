@@ -2,7 +2,7 @@
   @extend %contain-floats;
 
   .collection-item {
-    @include ig-core-19;
+    @include core-19;
     list-style: none;
     margin-bottom: $gutter-one-third;
     @include media(tablet) {

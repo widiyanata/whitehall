@@ -6,7 +6,7 @@
   }
 
   h3 {
-    @include ig-core-14;
+    @include core-14;
     border-bottom: 1px solid $border-colour;
   }
   p {
@@ -16,7 +16,7 @@
     overflow: hidden;
     margin: 0 (-$gutter-one-third) $gutter-one-third;
     li {
-      @include ig-core-16;
+      @include core-16;
       display: block;
 
       @include media(desktop) {

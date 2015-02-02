@@ -3,7 +3,7 @@
   position: relative;
   clear: both;
   padding-bottom: $gutter-two-thirds;
-  @include ig-core-16;
+  @include core-16;
 
   nav {
     overflow: hidden;
@@ -39,6 +39,6 @@
     vertical-align: top;
   }
   p {
-    @include ig-core-16;
+    @include core-16;
   }
 }

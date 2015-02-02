@@ -27,11 +27,11 @@
   
   .block-2 {
     .introduction {
-      @include ig-core-24;
+      @include core-24;
     }
     
     .beta-site {
-      @include ig-core-16;
+      @include core-16;
     }
   }
   

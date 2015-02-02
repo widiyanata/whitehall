@@ -4,7 +4,7 @@
   }
 
   p, li{
-    @include ig-core-19;
+    @include core-19;
     a {
       text-decoration: underline;
     }
@@ -131,7 +131,7 @@
       }
     }
     .caption {
-      @include ig-core-16;
+      @include core-16;
     }
   }
   .civil-pie {
@@ -184,7 +184,7 @@
   }
 
   .feature-caption {
-    @include ig-core-16;
+    @include core-16;
     display: block;
     padding-bottom: $gutter;
   }
@@ -193,7 +193,7 @@
     p {
       text-align: center;
       color: #999;
-      @include ig-core-48;
+      @include core-48;
       padding: $gutter-half 0 $gutter;
     }
 
@@ -259,7 +259,7 @@
 
       span{
         color:black;
-        @include ig-core-16;
+        @include core-16;
         display: block;
         padding: 0;
         margin: 0;
@@ -291,7 +291,7 @@
   .policy-count {
     text-align: center;
     p {
-      @include ig-core-16;
+      @include core-16;
     }
 
     p.circle{
@@ -338,7 +338,7 @@
   }
 
   h2 {
-    @include ig-core-36;
+    @include core-36;
     padding-bottom: 1px;
     border-bottom: 5px solid black;
     margin: $gutter 0 $gutter;
@@ -350,7 +350,7 @@
   }
 
   h3 {
-    @include ig-core-27;
+    @include core-27;
     font-weight: bold;
     margin: 0 0 $gutter-two-thirds;
     width: $full-width;
@@ -362,7 +362,7 @@
   .prime-minister,
   .dep-prime-minister {
     h3 {
-      @include ig-core-27;
+      @include core-27;
       font-weight: bold;
     }
   }
@@ -370,7 +370,7 @@
   .depts-cont,
   .gov-types {
     h3 {
-      @include ig-core-19;
+      @include core-19;
       font-weight: bold;
       margin-bottom: 0;
     }
@@ -393,7 +393,7 @@
   }
 
   h4 {
-    @include ig-core-19;
+    @include core-19;
     font-weight: bold;
     &.with-gutter {
       margin-top: $gutter-half;
@@ -406,7 +406,7 @@
   }
 
   p.small-print {
-    @include ig-core-14;
+    @include core-14;
   }
   h2.coalition {
     border-color: black;
@@ -515,7 +515,7 @@
       span.circle .caption {
         position: relative;
         top: -10px;
-        @include ig-core-14;
+        @include core-14;
         line-height: 1;
       }
     }
@@ -532,7 +532,7 @@
       span.circle .caption {
         position: relative;
         top: -10px;
-        @include ig-core-14;
+        @include core-14;
         line-height: 1;
       }
     }
@@ -549,7 +549,7 @@
       span.circle .caption {
         position: relative;
         top: -5px;
-        @include ig-core-14;
+        @include core-14;
       }
     }
   }

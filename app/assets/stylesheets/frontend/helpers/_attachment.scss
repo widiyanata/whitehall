@@ -50,7 +50,7 @@ $thumbnail-width: 99px;
 
   .attachment-details {
     h1, h2, h3 {
-      @include ig-core-27;
+      @include core-27;
       margin: 0;
     }
 
@@ -66,12 +66,12 @@ $thumbnail-width: 99px;
     }
 
     .extra-description {
-      @include ig-core-19;
+      @include core-19;
       margin: 0;
     }
 
     .metadata {
-      @include ig-core-14;
+      @include core-14;
       margin: 0;
       .changed,
       .references {
@@ -94,7 +94,7 @@ $thumbnail-width: 99px;
 
   .opendocument-help {
     margin: 0;
-    @include ig-core-14;
+    @include core-14;
     a {
       @include external-link-14;
     }
@@ -103,7 +103,7 @@ $thumbnail-width: 99px;
   .accessibility-warning {
     margin-top: $gutter-one-third;
     h2 {
-      @include ig-core-14;
+      @include core-14;
       margin: 0;
       color: $text-colour;
     }

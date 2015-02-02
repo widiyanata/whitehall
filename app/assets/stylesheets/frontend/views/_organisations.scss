@@ -67,7 +67,7 @@
     .view-all {
       display: block;
       float: left;
-      @include ig-core-16;
+      @include core-16;
     }
     .works-with {
       @include media(desktop){
@@ -139,7 +139,7 @@
   li.index-item-plain {
     list-style: none;
     border-bottom: 1px solid $border-colour;
-    @include ig-core-19;
+    @include core-19;
   }
 
   .type-heading {
@@ -332,7 +332,7 @@
   }
 
   #topics h1 {
-    @include ig-core-27;
+    @include core-27;
     font-weight: bold;
     margin: 0 0 $gutter-one-third;
     @include media(tablet) {
@@ -340,13 +340,13 @@
     }
   }
   #mainstream_categories h1 {
-    @include ig-core-27;
+    @include core-27;
     font-weight: bold;
     margin: $gutter-one-third 0;
   }
 
   .social-media h2 {
-    @include ig-core-19;
+    @include core-19;
     font-weight: bold;
   }
 
@@ -414,7 +414,7 @@
         padding-top: $gutter*1.5;
       }
       p {
-        @include ig-core-19;
+        @include core-19;
         padding-right: $gutter-half;
       }
     }
@@ -430,7 +430,7 @@
     }
 
     .featured-items {
-      @include ig-core-19;
+      @include core-19;
       list-style: none;
       margin-bottom: $gutter-one-third;
       @include media(tablet) {
@@ -486,7 +486,7 @@
     clear: both;
 
     p {
-      @include ig-core-19;
+      @include core-19;
     }
 
     .body {
@@ -865,7 +865,7 @@
 
   .description {
     p {
-      @include ig-core-19;
+      @include core-19;
     }
 
     margin-bottom: $gutter;
@@ -1178,7 +1178,7 @@
   }
 
   nav {
-    @include ig-core-16;
+    @include core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;
 
     ol {
@@ -1207,7 +1207,7 @@
   }
   .main {
     clear: both;
-    @include ig-core-48;
+    @include core-48;
     font-weight: bold;
 
     @include media(tablet) {
@@ -1215,7 +1215,7 @@
     }
   }
   .description {
-    @include ig-core-27;
+    @include core-27;
   }
   .body {
     h2 {
@@ -1228,7 +1228,7 @@
   }
   .corporate-publications {
     h1 {
-      @include ig-core-27;
+      @include core-27;
       margin: $gutter 0 $gutter-half 0;
     }
     ul {
@@ -1238,18 +1238,18 @@
         padding: $gutter-one-sixth 0;
 
         h3 {
-          @include ig-core-19;
+          @include core-19;
           padding: 0;
         }
         .metadata {
-          @include ig-core-14;
+          @include core-14;
           padding: 0;
         }
       }
     }
     .transparency {
       a {
-        @include ig-core-19;
+        @include core-19;
       }
     }
   }
@@ -1270,7 +1270,7 @@
       width: $full-width;
     }
     h2 {
-      @include ig-core-19;
+      @include core-19;
     }
   }
 }

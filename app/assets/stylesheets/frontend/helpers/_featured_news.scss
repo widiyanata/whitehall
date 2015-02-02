@@ -54,12 +54,12 @@
         }
 
         .meta {
-          @include ig-core-14;
+          @include core-14;
           color: $secondary-text-colour;
           padding-bottom: 0;
         }
         h2 {
-          @include ig-core-19;
+          @include core-19;
           padding-top: 0;
           a {
             font-weight: bold;
@@ -74,7 +74,7 @@
           padding: $gutter-one-sixth 0 $gutter-one-third ;
         }
         .summary {
-          @include ig-core-14;
+          @include core-14;
         }
       }
     }

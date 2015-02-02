@@ -1,7 +1,7 @@
 .policy-groups {
   .summary {
     width: $full-width;
-    @include ig-core-24;
+    @include core-24;
     margin-bottom: $gutter*2;
   }
 
@@ -28,7 +28,7 @@
     }
   }
   h2 {
-    @include ig-core-27;
+    @include core-27;
     margin-top: $gutter;
     @include media(tablet) {
       margin-top: $gutter-half;
@@ -40,12 +40,12 @@
   }
 
   .policy {
-    @include ig-core-19;
+    @include core-19;
     list-style: none;
     border-bottom: 1px solid $border-colour;
   }
 
   .email {
-    @include ig-core-19;
+    @include core-19;
   }
 }

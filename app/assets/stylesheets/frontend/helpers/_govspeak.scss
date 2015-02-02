@@ -7,7 +7,7 @@
   }
 
   h2 {
-    @include ig-core-27;
+    @include core-27;
     font-weight: bold;
     margin-top: $gutter-half;
     @include media(desktop) {
@@ -15,18 +15,18 @@
     }
   }
   h3 {
-    @include ig-core-19;
+    @include core-19;
     font-weight: bold;
     margin-top: $gutter + $gutter-one-sixth;
   }
   h4 {
-    @include ig-core-19;
+    @include core-19;
     font-weight: bold;
     margin-top: $gutter + $gutter-one-sixth;
   }
 
   p {
-    @include ig-core-19;
+    @include core-19;
     margin: $gutter-one-sixth 0;
     @include media(tablet) {
       margin: $gutter-one-third 0;
@@ -36,7 +36,7 @@
   h4,
   h5,
   h6 {
-    @include ig-core-19;
+    @include core-19;
     font-weight: bold;
     &+p {
       margin-top: 0;
@@ -69,7 +69,7 @@
   ol {
     list-style: decimal;
     list-style-position: outside;
-    @include ig-core-19;
+    @include core-19;
     margin: $gutter-one-sixth 0 $gutter-one-sixth $gutter-two-thirds;
     @include media (tablet) {
       margin: $gutter-one-third 0 $gutter-one-third $gutter-two-thirds;
@@ -105,7 +105,7 @@
   ul {
     list-style: disc;
     list-style-position: outside;
-    @include ig-core-19;
+    @include core-19;
     margin: $gutter-one-sixth 0 $gutter-one-sixth $gutter-two-thirds;
     @include media (tablet) {
       margin: $gutter-one-third 0 $gutter-one-third $gutter-two-thirds;
@@ -222,7 +222,7 @@
     }
 
     figcaption {
-      @include ig-core-14;
+      @include core-14;
     }
   }
 
@@ -275,7 +275,7 @@
     border-spacing: 0;
     margin: $gutter 0;
     width: $full-width;
-    @include ig-core-19;
+    @include core-19;
 
     caption {
       text-align:left;

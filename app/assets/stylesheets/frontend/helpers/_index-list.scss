@@ -72,7 +72,7 @@
   margin-left: $one-third;
   
   h3 {
-    @include ig-core-19;
+    @include core-19;
   }
 }
 
@@ -80,6 +80,6 @@
   li {
     list-style: none;
     border-bottom: 1px solid $border-colour;
-    @include ig-core-19;
+    @include core-19;
   }
 }
