@@ -67,8 +67,7 @@ class HtmlAttachment < Attachment
   end
 
   def should_generate_new_friendly_id?
-    return false unless sluggable_locale?
-    slug.nil? || attachable.nil? || !attachable.document.published?
+    sluggable? && (slug.nil? || !document_published?)
   end
 
   def search_index
@@ -87,7 +86,15 @@ class HtmlAttachment < Attachment
     'HTML'
   end
 
-  private
+private
+
+  def sluggable?
+    sluggable_locale? && title.present?
+  end
+
+  def document_published?
+    attachable.document.published?
+  end
 
   def sluggable_locale?
     locale.blank? or locale == "en"

@@ -9,7 +9,7 @@ gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
 gem 'validates_email_format_of'
-gem 'friendly_id', '5.0.4'
+gem 'friendly_id', github: 'tekin/friendly_id', ref: 'sequential-slugs'
 gem 'babosa'
 gem 'nokogiri'
 gem 'slimmer', '6.0.0'

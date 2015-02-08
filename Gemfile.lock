@@ -14,6 +14,14 @@ GIT
       rack (>= 1.0)
 
 GIT
+  remote: git://github.com/tekin/friendly_id.git
+  revision: 4e1fbe16359e8013f0c2a3dbc9953062ac4551fb
+  ref: sequential-slugs
+  specs:
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
+
+GIT
   remote: git://github.com/tekin/globalize.git
   revision: cd480176c812169fbf2ff1b57fefe2589f2ae77b
   ref: transalted-model-touch-issue
@@ -129,8 +137,6 @@ GEM
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
-    friendly_id (5.0.4)
-      activerecord (>= 4.0.0)
     gds-api-adapters (17.2.0)
       link_header
       lrucache (~> 0.1.1)
@@ -368,7 +374,7 @@ GEM
     ttfunk (1.1.1)
     typhoeus (0.6.9)
       ethon (>= 0.7.1)
-    tzinfo (0.3.42)
+    tzinfo (0.3.43)
     uglifier (2.6.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -411,7 +417,7 @@ DEPENDENCIES
   database_cleaner (= 1.4.0)
   equivalent-xml (= 0.5.1)
   factory_girl
-  friendly_id (= 5.0.4)
+  friendly_id!
   gds-api-adapters (= 17.2.0)
   gds-sso (~> 10.0)
   globalize!

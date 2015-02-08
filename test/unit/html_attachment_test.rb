@@ -38,6 +38,11 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, attachment.url
   end
 
+  test "slugging code doesn't explode when title is blank" do
+    attachment = build(:html_attachment, title: '')
+    refute attachment.valid?
+  end
+
   test "slug is copied from previous edition's attachment" do
     edition = create(:published_publication, attachments: [
       attachment = build(:html_attachment, title: "an-html-attachment")
