@@ -64,6 +64,23 @@ class Classification < ActiveRecord::Base
     end
   end
 
+
+  # NOTE: Temporary override of has_many through association assignment to get
+  # around bug in Rails[1]. This should be removed once the bug is fixed and
+  # back-ported to the version of Rails whitehall is running.
+  #
+  # [1] https://github.com/rails/rails/pull/18198
+  def organisations=(orgs)
+    organisation_classifications.destroy_all
+
+    orgs.each do |org|
+      organisation_classifications << OrganisationClassification.new(
+                                        organisation_id: org.id,
+                                        classification_id: self.id
+                                      )
+    end
+  end
+
   def policies
     editions.policies.order('classification_memberships.ordering ASC')
   end

@@ -182,6 +182,21 @@ class TopicTest < ActiveSupport::TestCase
     assert topic.featured_links.empty?
   end
 
+  test "supports direct assignment of organisations" do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+    topic = create(:topic)
+    topic.organisations << organisation_1
+    assert_equal [organisation_1], topic.reload.organisations
+
+    topic.organisations = [organisation_2]
+    topic.save
+    assert_equal [organisation_2], topic.reload.organisations.to_a
+
+    topic.organisations = [organisation_1, organisation_2]
+    assert_equal [organisation_1, organisation_2], topic.reload.organisations
+  end
+
   test "with_statistics_announcements scopes to organisations with associated statistics_announcements" do
     topic_with_announcement = create(:topic)
     create(:statistics_announcement, topics: [topic_with_announcement])
