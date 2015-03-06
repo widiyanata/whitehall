@@ -22,3 +22,11 @@
     padding: $gutter-two-thirds;
   }
 }
+
+.document-page .history-mode-block .metadata-list {
+  // Quick hacks to render the meta-data inside a status block
+  // @TODO: Only for prototyping/testing, not to be commited/merged
+  float: none;
+  width: auto;
+  margin: 30px 0 0 -15px;
+}
