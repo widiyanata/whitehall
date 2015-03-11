@@ -18,6 +18,7 @@ class Government < ActiveRecord::Base
   end
 
   def current?
-    self == Government.current
+    # self == Government.current
+    false
   end
 end
