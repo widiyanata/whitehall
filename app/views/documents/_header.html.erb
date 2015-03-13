@@ -5,6 +5,23 @@
   primary_mainstream_category ||= nil
   specialist_tag_finder = SpecialistTagFinder.new(@document)
 %>
+
+
+<% if @document.historic? %>
+
+<div class="govuk-beta-label historical-label">
+  <p>
+    <strong class="phase-tag">Old content</strong>
+    <span>
+      This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag).downcase %> is from a previous government<br />
+      It was published under the <%= @document.government.name %>
+    </span>
+  </p>
+</div>
+
+<% end %>
+
+
 <%= render partial: 'shared/heading',
           locals: { type: add_sector_name(header_title, specialist_tag_finder.primary_sector_tag),
                     heading: document.title,
@@ -19,26 +36,25 @@
   </div>
 </div>
 
-<% if @document.historic? %>
-  <div class="status-block history-mode-block">
-    <h2>This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag) %> isn't from the current government</h2>
-
-    <p>It was published under the <%= @document.government.name %> </p>
-
-    <%= render 'documents/metadata', document: document,
-                                 footer_meta: false,
-                                 policies: policies,
-                                 topics: topics,
-                                 primary_mainstream_category: primary_mainstream_category,
-                                 specialist_tag_finder: specialist_tag_finder %>
-  </div>
-
-<% else %>
-
 <%= render 'documents/metadata', document: document,
                                  footer_meta: (defined?(footer_meta) ? footer_meta : false),
                                  policies: policies,
                                  topics: topics,
                                  primary_mainstream_category: primary_mainstream_category,
                                  specialist_tag_finder: specialist_tag_finder %>
+
+<% if @document.historic? %>
+
+<!-- <div class="history-mode-block-option-one">
+<h2>This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag).downcase %> is from a previous government</h2>
+<p>It was published under the <%= @document.government.name %>.</p>
+<p><a href="#">See the latest</a></p>
+</div> -->
+
+<!-- <div class="history-mode-block-option-two">
+<h2>This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag).downcase %> is from a previous government</h2>
+<p>It was published under the <%= @document.government.name %>.</p>
+<p id="onward"><a href="#">See the latest</a></p>
+</div> -->
+
 <% end %>
