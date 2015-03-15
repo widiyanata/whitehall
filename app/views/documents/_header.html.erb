@@ -7,7 +7,7 @@
 %>
 
 
-<% if @document.historic? %>
+<% if @document.historic? && @document.is_a?(Speech) %>
 
 <div class="govuk-beta-label historical-label">
   <p>
@@ -43,18 +43,20 @@
                                  primary_mainstream_category: primary_mainstream_category,
                                  specialist_tag_finder: specialist_tag_finder %>
 
-<% if @document.historic? %>
+<% if @document.historic? && @document.is_a?(Publication) %>
 
-<!-- <div class="history-mode-block-option-one">
+<div class="history-mode-block-option-one">
 <h2>This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag).downcase %> is from a previous government</h2>
 <p>It was published under the <%= @document.government.name %>.</p>
 <p><a href="#">See the latest</a></p>
-</div> -->
+</div>
 
-<!-- <div class="history-mode-block-option-two">
+<% elsif !@document.is_a?(Speech) %>
+
+<div class="history-mode-block-option-two">
 <h2>This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag).downcase %> is from a previous government</h2>
 <p>It was published under the <%= @document.government.name %>.</p>
 <p id="onward"><a href="#">See the latest</a></p>
-</div> -->
+</div>
 
 <% end %>
