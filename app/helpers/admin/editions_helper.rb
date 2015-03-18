@@ -298,6 +298,12 @@ module Admin::EditionsHelper
     end
   end
 
+  def policy_options_for_select(policies)
+    policies.map do |policy|
+      [policy.title, policy.content_id]
+    end
+  end
+
   def specialist_sector_fields
     capture do
       yield(SpecialistSector.grouped_sector_topics)

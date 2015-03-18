@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223160728) do
+ActiveRecord::Schema.define(version: 20150310144551) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -318,6 +318,13 @@ ActiveRecord::Schema.define(version: 20150223160728) do
   add_index "edition_organisations", ["edition_id", "organisation_id"], name: "index_edition_organisations_on_edition_id_and_organisation_id", unique: true, using: :btree
   add_index "edition_organisations", ["organisation_id"], name: "index_edition_organisations_on_organisation_id", using: :btree
 
+  create_table "edition_policies", force: true do |t|
+    t.integer  "edition_id"
+    t.integer  "policy_content_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "edition_policy_groups", force: true do |t|
     t.integer "edition_id"
     t.integer "policy_group_id"
@@ -574,8 +581,8 @@ ActiveRecord::Schema.define(version: 20150223160728) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "governments", ["end_date"], name: "index_governments_on_end_date", using: :btree

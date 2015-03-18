@@ -7,3 +7,17 @@
                   class: 'chzn-select',
                   data: { placeholder: "Choose related policies..."} %>
 </fieldset>
+
+<fieldset>
+  <p>
+    These new policy fields are experimental.  Please do not use them unless requested.
+  </p>
+
+  <%= form.label :policy_ids, 'New policies' %>
+  <%= form.select :policy_ids,
+                  policy_options_for_select(edition.policies),
+                  {},
+                  multiple: true,
+                  class: 'chzn-select',
+                  data: { placeholder: "Choose policies..."} %>
+</fieldset>
