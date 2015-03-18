@@ -51,7 +51,9 @@
 <p><a href="#">See the latest</a></p>
 </div>
 
-<% elsif !@document.is_a?(Speech) %>
+<% end %>
+
+<% if @document.historic? && @document.is_a?(Consultation) %>
 
 <div class="history-mode-block-option-two">
 <h2>This <%= add_sector_name(header_title, specialist_tag_finder.primary_sector_tag).downcase %> is from a previous government</h2>
