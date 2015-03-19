@@ -57,7 +57,7 @@ class DocumentsControllerTest < ActionController::TestCase
     new_draft.change_note = "change-note"
     new_draft.scheduled_publication = Time.zone.now + Whitehall.default_cache_max_age * 2
     new_draft.force_schedule
-    assert new_draft.save_as(user)
+    assert new_draft.edit_as(user)
     assert new_draft.scheduled?
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do

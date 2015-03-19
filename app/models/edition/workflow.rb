@@ -95,16 +95,12 @@ module Edition::Workflow
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
-  def save_as(user)
+  def edit_as(user, attributes = {})
+    assign_attributes(attributes)
     if save
       edition_authors.create!(user: user)
       recent_edition_openings.where(editor_id: user).delete_all
     end
-  end
-
-  def edit_as(user, attributes = {})
-    assign_attributes(attributes)
-    save_as(user)
   end
 
   def edition_has_no_unpublished_editions

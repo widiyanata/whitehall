@@ -81,7 +81,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     writer = create(:policy_writer)
     new_edition = publication.create_draft(writer)
     new_edition.change_note = "change-note"
-    new_edition.save_as(writer)
+    new_edition.edit_as(writer)
     new_edition.submit!
     publish(new_edition)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")

@@ -107,7 +107,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     writer = create(:policy_writer)
     new_draft = edition.create_draft(writer)
     new_draft.change_note = 'change-note'
-    new_draft.save_as(writer)
+    new_draft.edit_as(writer)
     new_draft.submit!
     publish(new_draft)
     [edition, new_draft]
@@ -118,7 +118,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     writer = create(:policy_writer)
     new_draft = edition.create_draft(writer)
     new_draft.change_note = 'change-note'
-    new_draft.save_as(writer)
+    new_draft.edit_as(writer)
     [edition, new_draft]
   end
 end

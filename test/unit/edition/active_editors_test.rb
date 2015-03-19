@@ -42,12 +42,12 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
     assert_equal [], edition.active_edition_openings
   end
 
-  test "#save_as removes all RecentEditionOpenings for the specified editor" do
+  test "#edit_as removes all RecentEditionOpenings for the specified editor" do
     user = create(:policy_writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
     assert_difference "edition.recent_edition_openings.count", -1 do
-      edition.save_as(user)
+      edition.edit_as(user)
     end
   end
 
