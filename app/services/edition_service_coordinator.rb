@@ -42,4 +42,8 @@ class EditionServiceCoordinator
   def deleter(edition, options = {})
     ::EditionDeleter.new(edition, options.merge(notifier: self))
   end
+
+  def draft_updater(edition, options = {})
+    ::DraftEditionUpdater.new(edition, options.merge(notifier: self))
+  end
 end
