@@ -65,4 +65,21 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
 
     assert_equal 1, edition.edition_authors.count
   end
+
+  test "attributes are only assigned once" do
+    edition = build(:draft_speech)
+
+    new_user = create(:user)
+    attributes = {}
+    attributes[:images_attributes] = {
+      "0" => { alt_text: "some-alt-text",
+              image_data_attributes: attributes_for(:image_data) }
+    }
+
+    Edition::AuditTrail.acting_as(new_user) do
+      updater = DraftEditionUpdater.new(edition, attributes: attributes)
+      assert updater.perform!, updater.failure_reason
+    end
+    assert_equal 1, edition.images.length
+  end
 end

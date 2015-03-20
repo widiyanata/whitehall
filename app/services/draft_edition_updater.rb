@@ -18,7 +18,9 @@ class DraftEditionUpdater < EditionService
   end
 
   def prepare_edition
+    return if @prepared
     edition.assign_attributes(attributes)
+    @prepared = true
   end
 
   def fire_transition!
