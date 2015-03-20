@@ -96,10 +96,8 @@ module Edition::Workflow
   end
 
   def edit_as(user, attributes = {})
-    assign_attributes(attributes)
-    if save
-      edition_authors.create!(user: user)
-      recent_edition_openings.where(editor_id: user).delete_all
+    Edition::AuditTrail.acting_as(user) do
+      Whitehall.edition_services.draft_updater(self, attributes).perform!
     end
   end
 
