@@ -97,7 +97,8 @@ module Edition::Workflow
 
   def edit_as(user, attributes = {})
     Edition::AuditTrail.acting_as(user) do
-      Whitehall.edition_services.draft_updater(self, attributes).perform!
+      updater = Whitehall.edition_services.draft_updater(self, attributes: attributes)
+      updater.can_perform? && updater.perform!
     end
   end
 

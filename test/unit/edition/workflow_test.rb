@@ -102,13 +102,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#edit_as returns true if edit succeeds" do
     edition = create(:policy)
-    edition.stubs(:save).returns(true)
+    edition.stubs(:valid?).returns(true)
     assert edition.edit_as(create(:user), {})
   end
 
   test "#edit_as does not record new creator if edit fails" do
     edition = create(:policy)
-    edition.stubs(:save).returns(false)
+    edition.stubs(:valid?).returns(false)
     user = create(:user)
     edition.edit_as(user, {})
     assert_equal 1, edition.edition_authors.count
@@ -116,7 +116,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#edit_as returns false if edit fails" do
     edition = create(:policy)
-    edition.stubs(:save).returns(false)
+    edition.stubs(:valid?).returns(false)
     refute edition.edit_as(create(:user), {})
   end
 
