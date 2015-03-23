@@ -227,7 +227,9 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def new_edition_params
-    edition_params.merge(creator: current_user)
+    { creator: current_user }.tap do |p|
+      p.merge!(edition_params) if action_name == 'new'
+    end
   end
 
   def show_or_edit_path
@@ -243,7 +245,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def new_edition
-    edition_class.new(creator: current_user)
+    edition_class.new(new_edition_params)
   end
 
   def build_edition
