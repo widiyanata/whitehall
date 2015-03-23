@@ -227,9 +227,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def new_edition_params
-    { creator: current_user }.tap do |p|
-      p.merge!(edition_params) if action_name == 'new'
-    end
+    { creator: current_user }
   end
 
   def show_or_edit_path
@@ -253,6 +251,7 @@ class Admin::EditionsController < Admin::BaseController
     I18n.with_locale(edition_locale) do
       @edition = LocalisedModel.new(new_edition, edition_locale)
     end
+    updater.prepare_edition
   end
 
   def find_edition

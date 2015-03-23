@@ -8,6 +8,12 @@ class DraftEditionUpdater < EditionService
     'update'
   end
 
+  def prepare_edition
+    return if @prepared
+    edition.assign_attributes(attributes)
+    @prepared = true
+  end
+
   private
 
   def compute_failure_reason
@@ -15,12 +21,6 @@ class DraftEditionUpdater < EditionService
     if !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
     end
-  end
-
-  def prepare_edition
-    return if @prepared
-    edition.assign_attributes(attributes)
-    @prepared = true
   end
 
   def fire_transition!
