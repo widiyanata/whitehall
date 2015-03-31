@@ -41,6 +41,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
       world_locations: h.filter_results_selections(filter.selected_locations, 'world_locations').map {|h| h[:name]},
       keywords: h.filter_results_keywords(filter.keywords),
       relevant_to_local_government: filter.relevant_to_local_government ? "relevant to local government" : "",
+      include_historic_documents: filter.include_historic_documents ? "including historic documents from previous governments" : "",
       include_world_location_news: filter.include_world_location_news ? "including location-specific news" : ""
     }
   end

@@ -197,6 +197,9 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           if (field.id === 'include_world_location_news' && field.value === '1') {
             context.include_world_location_news = true;
           }
+          if (field.id === 'include_historic_documents' && field.value === '1') {
+            context.include_historic_documents = true;
+          }
         }
       }
 

@@ -28,6 +28,7 @@ module Whitehall::DocumentFilter
       filter_by_publication_filter_option!
       filter_by_announcement_filter_option!
       filter_by_relevant_to_local_government_option!
+      filter_by_include_historic_documents_option!
       filter_by_include_world_location_news_option!
       filter_by_location!
       apply_sort_direction!
@@ -101,6 +102,13 @@ module Whitehall::DocumentFilter
     def filter_by_relevant_to_local_government_option!
       if relevant_to_local_government
         @documents = @documents.relevant_to_local_government(relevant_to_local_government)
+      end
+    end
+
+    def filter_by_include_historic_documents_option!
+      # By defaults we don't want to include any political content from previous governments
+      unless include_historic_documents
+        @documents = @documents.where(political: false)
       end
     end
 

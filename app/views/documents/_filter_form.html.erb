@@ -56,6 +56,13 @@
           </div>
         <% end %>
 
+        <% if filters.include? :include_historic_documents %>
+          <div class="filter checkbox-filter">
+            <%= label_tag "include_historic_documents", "Include political documents published by previous governments" %>
+            <%= check_box_tag :include_historic_documents, '1', @filter.include_historic_documents %>
+          </div>
+        <% end %>
+
         <% if filters.include? :include_world_location_news %>
           <div class="filter checkbox-filter">
             <%= label_tag "include_world_location_news", "Include local news from UK embassies and other world organisations" %>

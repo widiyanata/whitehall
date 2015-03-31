@@ -10,6 +10,7 @@ module Whitehall::DocumentFilter
                                          keywords
                                          locale
                                          relevant_to_local_government
+                                         include_historic_documents
                                          include_world_location_news
                                          official_document_status
                                          publication_type
