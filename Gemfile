@@ -76,6 +76,7 @@ group :development, :test do
   gem 'test-queue', '0.2.11'
   gem 'ruby-prof'
   gem 'pry-byebug'
+  gem 'rubocop', require: false
 end
 
 group :development do
@@ -84,7 +85,6 @@ group :development do
   gem 'thin', '1.6.3'
   gem 'newrelic_rpm'
   gem 'quiet_assets'
-  gem 'rubocop', require: false
 end
 
 group :test do
