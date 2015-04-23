@@ -61,7 +61,7 @@ private
     Whitehall.unified_search_client.unified_search(
       filter_organisations: [@organisation.slug],
       filter_format: "policy"
-    ).results
+    ).results[0...3]
   end
 
   def ministers
