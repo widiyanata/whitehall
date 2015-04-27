@@ -54,6 +54,7 @@ Whitehall::Application.configure do
   # them here means we don't have to explicitly set them just ro run tests.
   ENV['GOVUK_APP_DOMAIN'] ||= 'test.alphagov.co.uk'
   ENV['GOVUK_ASSET_ROOT'] ||= 'http://static.test.alphagov.co.uk'
+  ENV["ENABLE_FUTURE_POLICIES"] ||= '1'
 end
 
 require Rails.root.join("test/support/skip_slimmer")
