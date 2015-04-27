@@ -62,6 +62,19 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal policy_supporting_page_path(first_policy.document, supporting_page.document), public_document_path(supporting_page, policy_id: first_policy.document)
   end
 
+  test 'returns the policy_supporting_page_path with future-policies enabled' do
+    begin
+      future_policies_setting = Whitehall.future_policies_enabled?
+      Whitehall.future_policies_enabled = true
+
+      policy = create(:policy)
+      supporting_page = create(:supporting_page, related_policies: [policy])
+      assert_equal policy_supporting_page_path(policy.document, supporting_page.document), public_document_path(supporting_page)
+    ensure
+      Whitehall.future_policies_enabled = future_policies_setting
+    end
+  end
+
   test 'returns the correct path for CorporateInformationPage instances' do
     cip = create(:corporate_information_page)
     assert_equal organisation_corporate_information_page_path(cip.organisation, cip.slug), public_document_path(cip)

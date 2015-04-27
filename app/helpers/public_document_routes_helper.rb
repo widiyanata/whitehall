@@ -69,7 +69,7 @@ module PublicDocumentRoutesHelper
 
   def build_url_for_supporting_page(edition, options)
     options = options.merge(id: edition.document)
-    options[:policy_id] ||= edition.related_policies.first.document
+    options[:policy_id] ||= Policy.find(edition.related_policy_ids.first).document
     polymorphic_url('policy_supporting_page', options)
   end
 
