@@ -67,9 +67,6 @@
     margin-bottom: $gutter*2;
   }
 
-  .coalition {
-    margin-top: $gutter;
-
     @include media(tablet) {
       margin-top: 0;
     }
@@ -81,76 +78,10 @@
     }
   }
 
-  .civil-service{
-    margin-top:$gutter;
-
     @include media(tablet) {
       .two-thirds{
         margin-top:-$gutter*2;
       }
-    }
-
-    table {
-      width: $full-width;
-      margin-bottom:$gutter-half;
-      margin-top:$gutter-half;
-      tr{
-        border-bottom:1px solid $border-colour;
-        td{
-          padding-right:$gutter;
-        }
-        @include media(tablet) {
-          &.others {
-            vertical-align: top;
-
-            td + td {
-              line-height: 1;
-              padding-top: 3px;
-            }
-          }
-        }
-      }
-      strong {
-        border-left: 1.3em solid #eee;
-        padding-left: $gutter-one-third;
-      }
-      .dwp strong {
-        border-color: #00beb7;
-      }
-      .hmrc strong {
-        border-color: #008080;
-      }
-      .moj strong {
-        border-color: #231f20;
-      }
-      .mod strong {
-        border-color: #7A5F71;
-      }
-      .others strong {
-        border-color: #c8c8c8;
-      }
-    }
-    .caption {
-      @include ig-core-16;
-    }
-  }
-  .civil-pie {
-    font-size: 16px;
-    display:block;
-    height: 190px;
-    max-width: 250px;
-    margin: 0 auto;
-    padding-top: 100px;
-    background-color: $white;
-    vertical-align:middle;
-    text-align:center;
-    background-image: image-url("how-gov-works/Civil_Service_Info.png");
-    background-repeat:no-repeat;
-    background-size: $full-width auto;
-
-    @media all and (-webkit-min-device-pixel-ratio: 2) {
-      background-image: image-url("how-gov-works/Civil_Service_Infox2.png");
-      background-size: $full-width auto;
     }
 
     margin: 0 auto;
@@ -162,178 +93,6 @@
     @include media(desktop) {
       @include core-19;
       padding-top: 95px;
-    }
-  }
-
-  .feature-value{
-    font-size:5em;
-    padding-bottom:0;
-    margin:0 0 ($gutter-one-third * -1);
-    color:$grey-1;
-    font-weight: bold;
-    display:block;
-    line-height:1em;
-    a {
-      text-decoration: none;
-      color: $black;
-      &:hover,
-      &:focus {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .feature-caption {
-    @include ig-core-16;
-    display: block;
-    padding-bottom: $gutter;
-  }
-
-  .feature-ministers{
-    p {
-      text-align: center;
-      color: #999;
-      @include ig-core-48;
-      padding: $gutter-half 0 $gutter;
-    }
-
-    span.circle {
-      display: inline-block;
-      text-align: center;
-      padding: 0;
-      vertical-align: middle;
-      width: 17%;
-      a {
-        text-decoration: none;
-        &:hover,
-        &:focus {
-          text-decoration: underline;
-        }
-      }
-
-      .count {
-        @include core-48;
-        position: relative;
-        top: $gutter-one-third;
-        padding: 0;
-        margin: 0 0 $gutter-one-sixth 0;
-
-        font-size: 1.9em;
-        font-weight: bold;
-        display: block;
-        line-height: 1em;
-        a {
-          color:$black;
-        }
-      }
-
-      @include media(tablet) {
-        background-color:transparent;
-        border:0.1em solid $inside-gov-secondary;
-        width:3.8em;
-        height:3.8em;
-        -moz-border-radius: 2em;
-        -webkit-border-radius: 2em;
-        border-radius: 5em;
-
-        &:hover {
-          background-color: darken($inside-gov-secondary,10%);
-          border-color: darken($inside-gov-secondary,10%);
-        }
-
-        a {
-          &:hover,
-          &:focus {
-            text-decoration: none;
-          }
-        }
-
-        .count{
-          padding-top: 0.35em;
-          font-size: 1.9em;
-          font-weight: bold;
-          width:100%;
-          text-align:center;
-        }
-      }
-
-      span{
-        color:black;
-        @include ig-core-16;
-        display: block;
-        padding: 0;
-        margin: 0;
-      }
-    }
-
-    @include media(tablet) {
-      span.invert {
-        background-color: $inside-gov-secondary;
-        border-color: $inside-gov-secondary;
-
-        &:hover {
-          background-color: darken($inside-gov-secondary,10%);
-          border-color: darken($inside-gov-secondary,10%);
-        }
-
-
-        .count a, .caption {
-          color: black;
-        }
-      }
-    }
-  }
-
-  .ministers .caption {
-    max-width: 26em;
-  }
-
-  .policy-count {
-    text-align: center;
-    p {
-      @include ig-core-16;
-    }
-
-    p.circle{
-      background-color:transparent;
-      border:4px solid $inside-gov-secondary;
-      width:200px;
-      height:200px;
-      -moz-border-radius: 105px;
-      -webkit-border-radius: 105px;
-      border-radius: 105px;
-      display:block;
-      margin: $gutter-one-sixth auto 0;
-      text-align:center;
-      padding:0;
-      margin-bottom: $gutter-half;
-      vertical-align: middle;
-
-      &:hover {
-        background-color: darken($inside-gov-secondary,10%);
-        border-color: darken($inside-gov-secondary,10%);
-      }
-
-      a {
-        text-decoration: none;
-        color: $black;
-        &:hover,
-        &:focus {
-          text-decoration: none;
-        }
-      }
-
-      .count{
-        position: relative;
-        top: $gutter-one-third;
-        font-size:95px;
-        padding-top:0.45em;
-        padding-bottom:0;
-        margin:0;
-        font-weight: bold;
-        display:block;
-        line-height:1em;
-      }
     }
   }
 
@@ -360,35 +119,20 @@
   }
 
   .prime-minister,
-  .dep-prime-minister {
+  .dep-prime-minister,
+  .cabinet,
+  .ministers {
     h3 {
       @include ig-core-27;
       font-weight: bold;
     }
   }
 
-  .depts-cont,
   .gov-types {
     h3 {
       @include ig-core-19;
       font-weight: bold;
       margin-bottom: 0;
-    }
-  }
-
-  .gov-types, .ministers, .cabinet, .coalition, .civil-service{
-    h3{
-      border-top:1px solid $border-colour;
-      padding-top:$gutter - $gutter-one-sixth;
-    }
-  }
-
-  .ministers {
-    h3 {
-      margin-bottom: 0;
-      @include media(tablet) {
-        margin-bottom: $gutter-half;
-      }
     }
   }
 
@@ -407,14 +151,6 @@
 
   p.small-print {
     @include ig-core-14;
-  }
-  h2.coalition {
-    border-color: black;
-  }
-  .coalition h3 {
-    border-color: black;
-    border-width: $gutter-one-sixth;
-    padding-top: $gutter - 9px;
   }
 
   hr.keyline {
@@ -441,7 +177,6 @@
       }
     }
 
-    .depts-cont,
     .legislation,
     .access-information {
       .one-third {
@@ -454,7 +189,6 @@
       }
     }
 
-    .depts-cont .one-third:nth-child(2),
     .legislation .one-third:nth-child(4),
     .access-information .one-third:nth-child(2) {
       margin-bottom: $gutter-half;
@@ -468,7 +202,6 @@
   }
 
   @include media(tablet) {
-    .depts-cont,
     .legislation,
     .access-information {
       .one-third {
@@ -482,56 +215,6 @@
     .legislation {
       .two-thirds {
         margin-bottom: $gutter-one-third;
-      }
-    }
-  }
-
-  @media (min-width: 640px) and (max-width: 760px) {
-    .feature-ministers {
-      p {
-        font-size: $gutter;
-      }
-      span.circle .count {
-        top: $gutter-one-sixth;
-      }
-      span.circle .caption {
-        position: relative;
-        top: -10px;
-        @include ig-core-14;
-        line-height: 1;
-      }
-    }
-  }
-
-  @media (min-width: 761px) and (max-width: 980px) {
-    .feature-ministers {
-      p {
-        font-size: 35px;
-      }
-      span.circle .count {
-        top: $gutter-one-sixth;
-      }
-      span.circle .caption {
-        position: relative;
-        top: -10px;
-        @include ig-core-14;
-        line-height: 1;
-      }
-    }
-  }
-
-  @media (min-width: 811px) and (max-width: 980px) {
-    .feature-ministers {
-      p {
-        font-size: 39px;
-      }
-      span.circle .count {
-        top: $gutter-one-sixth;
-      }
-      span.circle .caption {
-        position: relative;
-        top: -5px;
-        @include ig-core-14;
       }
     }
   }
