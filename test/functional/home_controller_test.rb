@@ -57,59 +57,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ".header-context"
   end
 
-  view_test "how government works page shows a count of published policies" do
-    create(:published_policy)
-    create(:draft_policy)
-
-    get :how_government_works
-
-    assert_equal 1, assigns[:policy_count]
-    assert_select ".policy-count .count", "1"
-  end
-
-  view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
-    david_cameron = create(:person, forename: 'David', surname: 'Cameron')
-    philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
-    mark_prisk = create(:person, forename: 'Mark', surname: 'Prisk')
-    michael_gove = create(:person, forename: 'Michael', surname: 'Gove')
-
-    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
-    defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
-    state_for_housing_minister = create(:ministerial_role, name: 'Minister of State for Housing', cabinet_member: false)
-    education_minister = create(:ministerial_role, name: 'Secretary of State for Education', cabinet_member: true)
-
-    create(:ministerial_role_appointment, role: prime_minister, person: david_cameron)
-    create(:ministerial_role_appointment, role: defence_minister, person: philip_hammond)
-    create(:ministerial_role_appointment, role: state_for_housing_minister, person: mark_prisk)
-    create(:ministerial_role_appointment, role: education_minister, person: michael_gove)
-
-    get :how_government_works
-
-    assert_select '.cabinet-ministers .count', '2'
-    assert_select '.other-ministers .count', '1'
-    assert_select '.all-ministers .count', '4'
-  end
-
-  test "how_government_works should assign @ministerial_department_count to the count of active ministerial departments" do
-    create(:ministerial_department)
-    create(:ministerial_department)
-    create(:ministerial_department, :closed)
-
-    get :how_government_works
-
-    assert_equal 2, assigns[:ministerial_department_count]
-  end
-
-  test "how_government_works should assign @non_ministerial_department_count to the count of active non-ministerial departments" do
-    create(:non_ministerial_department)
-    create(:non_ministerial_department)
-    create(:non_ministerial_department, :closed)
-
-    get :how_government_works
-
-    assert_equal 2, assigns[:non_ministerial_department_count]
-  end
-
   test "get involved has counts of open and closed consultations" do
     old = create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.day)
 

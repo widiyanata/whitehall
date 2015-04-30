@@ -1,5 +1,6 @@
 Feature: Sitewide settings
 
+  @ignore
   Scenario: Minister counts should not be visible during minister reshuffle
     Given we are during a reshuffle
     When I visit the How Government Works page
@@ -10,6 +11,7 @@ Feature: Sitewide settings
     When I visit the ministers page
     Then I should see a reshuffle warning message
 
+  @ignore
   Scenario: Minister counts should be visible outside of a minister reshuffle
     Given we are not during a reshuffle
     When I visit the How Government Works page
