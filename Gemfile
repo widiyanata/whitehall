@@ -87,6 +87,7 @@ group :development do
   gem 'newrelic_rpm'
   gem 'quiet_assets'
   gem 'rubocop', require: false
+  gem 'spring'
 end
 
 group :test do
