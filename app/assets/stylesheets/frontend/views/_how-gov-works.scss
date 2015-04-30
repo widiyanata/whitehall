@@ -67,35 +67,6 @@
     margin-bottom: $gutter*2;
   }
 
-    @include media(tablet) {
-      margin-top: 0;
-    }
-
-    p{
-      background-color:$panel-colour;
-      padding:$gutter-half;
-      margin-top:-0.5em;
-    }
-  }
-
-    @include media(tablet) {
-      .two-thirds{
-        margin-top:-$gutter*2;
-      }
-    }
-
-    margin: 0 auto;
-    @include media(tablet) {
-      @include core-16;
-      padding-top: 40%;
-      margin: 0;
-    }
-    @include media(desktop) {
-      @include core-19;
-      padding-top: 95px;
-    }
-  }
-
   h2 {
     @include ig-core-36;
     padding-bottom: 1px;
