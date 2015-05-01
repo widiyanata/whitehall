@@ -6,7 +6,7 @@ class OrganisationType
     executive_agency:            { name: "Executive agency",                       analytics_prefix: "EA", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     executive_ndpb:              { name: "Executive non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true , allowed_promotional: false },
     advisory_ndpb:               { name: "Advisory non-departmental public body",  analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true , allowed_promotional: false },
-    tribunal_ndpb:               { name: "Tribunal non-departmental public body",  analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true , allowed_promotional: false },
+    tribunal_ndpb:               { name: "Tribunal non-departmental public body",  analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true , allowed_promotional: true },
     public_corporation:          { name: "Public corporation",                     analytics_prefix: "PC", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     independent_monitoring_body: { name: "Independent monitoring body",            analytics_prefix: "IM", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     adhoc_advisory_group:        { name: "Ad-hoc advisory group",                  analytics_prefix: "AG", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
@@ -14,7 +14,7 @@ class OrganisationType
     sub_organisation:            { name: "Sub-organisation",                       analytics_prefix: "OT", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     other:                       { name: "Other",                                  analytics_prefix: "OT", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     civil_service:               { name: "Civil Service",                          analytics_prefix: "CS", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
-    court:                       { name: "Court",                                  analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    court:                       { name: "Court",                                  analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
   }
 
   LISTING_ORDER = [
