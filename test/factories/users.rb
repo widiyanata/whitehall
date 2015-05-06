@@ -11,6 +11,8 @@ FactoryGirl.define do
     "uid-#{n}"
   end
 
+  sequence :user_id
+
   factory :user do
     name
     email

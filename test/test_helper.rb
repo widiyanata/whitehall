@@ -44,9 +44,11 @@ class ActiveSupport::TestCase
     Sidekiq::Worker.clear_all
     stub_default_publishing_api_put
     stub_default_publishing_api_put_draft
+    Edition::AuditTrail.whodunnit = stub(id: FactoryGirl.generate(:user_id))
   end
 
   teardown do
+    Edition::AuditTrail.whodunnit = nil
     Timecop.return
   end
 
