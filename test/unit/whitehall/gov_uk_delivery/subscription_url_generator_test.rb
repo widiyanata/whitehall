@@ -107,7 +107,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
 
   test "#subscription_urls includes policy activity feeds" do
     policy = create(:published_policy)
-    @edition = create(:news_article, related_policy_ids: [policy])
+    @edition = create(:news_article, related_policy_ids: [policy.id])
 
     assert_subscription_urls_for_edition_include("policies/#{policy.slug}/activity.atom")
   end
@@ -413,7 +413,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
 
   test "#subscription_urls excludes policy activity feeds if new policies enabled" do
     policy = create(:published_policy)
-    @edition = create(:news_article, related_policy_ids: [policy])
+    @edition = create(:news_article, related_policy_ids: [policy.id])
 
     FeatureFlag.find_or_create_by(key: 'future_policies')
     FeatureFlag.set('future_policies', true)
