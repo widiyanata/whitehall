@@ -36,9 +36,8 @@ Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ d
   fill_in "Title", with: new_title
 end
 
-Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_1, policy_title_2|
-  create(:published_policy, title: policy_title_1)
-  create(:published_policy, title: policy_title_2)
+Given /^two published policies exist$/ do
+  stub_content_register_policies
 end
 
 Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)"$/ do |editor_name, policy_title|
@@ -245,9 +244,9 @@ Then /^they should see the draft policy "([^"]*)"$/ do |title|
   assert page.has_css?('.document .body', text: policy.body)
 end
 
-Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/ do |policy_title_1, policy_title_2|
-  assert has_css?(".meta a", text: policy_title_1)
-  assert has_css?(".meta a", text: policy_title_2)
+Then /^I can see links to the related published policies$/ do
+  assert has_css?(".meta a", text: "Policy 1")
+  assert has_css?(".meta a", text: "Policy 2")
 end
 
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|

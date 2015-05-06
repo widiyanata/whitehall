@@ -29,9 +29,11 @@ When /^I draft a new news article "([^"]*)"$/ do |title|
 end
 
 When /^I draft a new news article "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
+  stub_content_register_policies
+
   begin_drafting_news_article title: title
-  select first_policy, from: "Related policies"
-  select second_policy, from: "Related policies"
+  select "Policy 1", from: "Policies"
+  select "Policy 2", from: "Policies"
   click_button "Save"
 end
 
